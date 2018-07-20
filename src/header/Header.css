@@ -1,0 +1,36 @@
+ul{
+    margin:  0 0 0 0;
+    display: flex;
+    padding: 0;
+    list-style-type: none;
+
+}
+ul > li > p{
+    font-weight: bolder;
+
+}.Navigation-bar{
+     width: 100vw;
+     background-color: #ffffff;
+     display: flex;
+     justify-content: space-between;
+     flex-direction: row;
+ }
+.Brain{
+    border-radius: 50%;
+    margin-left: 5%;
+    float: left;
+}
+.circle-text {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #fff;
+    background: url("../images/git.svg");
+}
+.circle-text-fb {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #fff;
+    background: url("../images/fb.svg");
+}

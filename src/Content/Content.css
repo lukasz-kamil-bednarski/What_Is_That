@@ -1,0 +1,85 @@
+.Content-box{
+    background-color: #222222;
+    display: flex;
+}
+.Input-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: dotted 2px #f1f1f1;
+    justify-content: center;
+    flex: 1;
+}
+.Input-box span {
+    color: #f1f1f1;
+    font-weight: bolder;
+    font-size: 144pt;
+    animation: shake 3s infinite cubic-bezier(.36,.07,.19,.97) both;
+}
+.Input-box span:hover{
+    animation: shake 3s infinite cubic-bezier(.36,.07,.19,.97) both;
+    cursor: default;
+}
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(0, -20px, 0);
+    }
+
+    20%, 80% {
+        transform: translate3d(0, 20px, 0);
+    }
+
+    30%, 50%, 70% {
+        transform: translate3d(0, -20px, 0);
+    }
+
+    40%, 60% {
+        transform: translate3d(0, 20px, 0);
+    }
+}
+.Image-input{
+    z-index: -1;
+}
+.Image-input-label{
+    color: #f1f1f1;
+    font-weight: bold;
+    font-size: 14pt;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 20px;
+}
+.Image-input-label:hover{
+    background-color: #f1f1f1;
+    color: #222222;
+}
+
+/*Image container box styles*/
+
+.Image-box{
+    flex: 2;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.Image-box button{
+    color: #f1f1f1;
+    font-weight: bolder;
+    font-size: 32pt;
+    background-color: darkred;
+    border-radius: 20px;
+    margin-bottom: 2%;
+}
+canvas{
+    border: dotted 2px #f1f1f1;
+}
+.Image-box span {
+    color:#f1f1f1;
+    font-weight: bolder;
+    font-size: 32pt;
+    border-radius: 20%;
+
+
+}
