@@ -1,11 +1,17 @@
 import React from 'react';
 import "./Content.css";
 import * as tf from '@tensorflow/tfjs'
-import axios from 'axios';
 export default class Content extends React.Component{
     constructor(props){
         super(props);
 
+        this.state = {
+            result : ''
+        }
+
+    }
+    componentWillMount(){
+        this.loadModel();
     }
     render(){
         return(
@@ -17,9 +23,9 @@ export default class Content extends React.Component{
                 </div>
 
                 <div className={"Image-box"} >
-                    <button onClick={()=>this.loadModel()}>Predict</button>
+                    <button onClick={()=>this.get_prediction()}>Predict</button>
                     <canvas ref={"canvas"} height={400} width={400}> </canvas>
-                    <span>Prediction:</span>
+                    <span>Prediction:{this.state.result}</span>
                 </div>
             </div>
         )
@@ -33,9 +39,9 @@ export default class Content extends React.Component{
             let img = new Image();
             img.onload = function(){
 
-                ctx.canvas.width = img.naturalWidth;
-                ctx.canvas.height = img.naturalHeight;
-                ctx.drawImage(img,0,0);
+                ctx.canvas.width = 150;
+                ctx.canvas.height = 150;
+                ctx.drawImage(img,0,0,150,150);
             };
             img.src = event.target.result;
         };
@@ -44,9 +50,73 @@ export default class Content extends React.Component{
     };
 
 
-    loadModel=()=>{
-                    console.log("bEgin");
-                    const model = tf.loadModel("http://student.agh.edu.pl/~lbednar/model/model.json");
-                        console.log("end")
-                    }
+  async loadModel(){
+
+                    this.model = await tf.loadModel("https://rawgit.com/lukasy09/IchLerneCNN.py/master/Objects/src/Model/model_js/model.json");
+                  };
+
+   get_prediction = ()=>{
+       let canvas = this.refs.canvas;
+       let ctx = canvas.getContext("2d");
+       let imageData = ctx.getImageData(0,0,150,150);
+
+       let pixels = tf.fromPixels(imageData,3);
+       let batched = pixels.expandDims(0);
+       const output = this.model.predict(batched);
+       let data = Array.from(output.dataSync());
+
+      let results = this.convertToArray(data);
+      let str = Content.resultsToStr(results);
+      console.log(str);
+      this.setState({
+          result:str
+      })
+
+   };
+
+   convertToArray = (data) => {
+       let outputArray = [];
+       data.forEach((num)=>{
+            outputArray.push(num)
+       });
+       return outputArray;
+   };
+
+     static resultsToStr(results){
+        let winningIndex = results.indexOf(1);
+        console.log(winningIndex);
+        let str;
+        switch (winningIndex) {
+            case 0:
+                str = "Human face";
+                break;
+            case 1:
+                str = "Butterfly";
+                break;
+            case 2:
+                str = "Cougar body";
+                break;
+            case 3:
+                str = "Cougar face";
+                break;
+            case 4:
+                str = "Crab";
+                break;
+            case 5:
+                str = "Crayfish";
+                break;
+            case 6:
+                str = "Crocodile";
+                break;
+            case 7:
+                str = "Soccer ball";
+                break;
+            default:
+                str = "Not recognized";
+                break;
+        }
+         return str;
+    };
+
+
 }
