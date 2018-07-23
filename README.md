@@ -1,8 +1,8 @@
-##Title
+
 <h1>What is that?</h1>
-#Begin
+
 <p>The project does exactly what the title says. It's trying to guess what is in the picture you pick for it.</p>
-##Description
+
 <p>The project consists of 2 layers.</p>
 
 <ul>
@@ -12,7 +12,7 @@
 
 <p>The application will be continuously upgraded and developed. Some new features will appear in the (near) future.</p>
 <p>Below you can see how it works.</p>
-##Video
+
 
 <p align="center"> 
 <img src="video/objects.gif">
