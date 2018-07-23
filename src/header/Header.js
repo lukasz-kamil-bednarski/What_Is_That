@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import logo from '../images/logo1.png'
 import "./Header.css"
 export default class Header extends React.Component{
@@ -6,7 +6,7 @@ export default class Header extends React.Component{
         return(
             <div className={"Navigation-bar"}>
                 <ul>
-                    <li style={{margin:'0 5px'}}><img  className={"Brain"} width={50} height={50} src={logo} title={"What is That?"}/></li>
+                    <li style={{margin:'0 5px'}}><img alt={"ML-logo"} className={"Brain"} width={50} height={50} src={logo} title={"What is That?"}/></li>
                     <li>
                         <p>Machine Learning - Object classifier</p>
                     </li>

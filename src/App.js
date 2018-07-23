@@ -4,7 +4,6 @@ import Content from './Content/Content';
 export default class App extends Component {
   constructor(props){
       super(props);
-
       /*
         Sizes of external the root container.
        */

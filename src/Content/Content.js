@@ -1,6 +1,7 @@
 import React from 'react';
 import "./Content.css";
 import * as tf from '@tensorflow/tfjs'
+import Converter from '../utils/Converter'
 export default class Content extends React.Component{
 
     constructor(props){
@@ -53,7 +54,10 @@ export default class Content extends React.Component{
 
     };
 
-
+    /**
+     * Loading the pre-trained model.
+     * @returns {Promise<void>}
+     */
   async loadModel(){
       /*
         Model for development
@@ -61,6 +65,9 @@ export default class Content extends React.Component{
       this.model = await tf.loadModel("https://rawgit.com/lukasy09/IchLerneCNN.py/master/Objects/src/Model/model_js/model.json");
                   };
 
+    /**
+     * Getting image data from canvas&preparing data for prediction&predicting.
+     */
    get_prediction = ()=>{
        let canvas = this.refs.canvas;
        let ctx = canvas.getContext("2d");
@@ -71,56 +78,13 @@ export default class Content extends React.Component{
        const output = this.model.predict(batched);
        let data = Array.from(output.dataSync());
 
-      let results = this.convertToArray(data);
-      let str = Content.resultsToStr(results);
-      console.log(str);
+      let results = Converter.convertToArray(data);
+      let str = Converter.resultsToStr(results);
+
       this.setState({
           result:str
       })
 
    };
 
-   convertToArray = (data) => {
-       let outputArray = [];
-       data.forEach((num)=>{
-            outputArray.push(num)
-       });
-       return outputArray;
-   };
-
-     static resultsToStr(results){
-        let winningIndex = results.indexOf(1);
-        console.log(winningIndex);
-        let str;
-        switch (winningIndex) {
-            case 0:
-                str = "Human face";
-                break;
-            case 1:
-                str = "Butterfly";
-                break;
-            case 2:
-                str = "Cougar body";
-                break;
-            case 3:
-                str = "Cougar face";
-                break;
-            case 4:
-                str = "Crab";
-                break;
-            case 5:
-                str = "Crayfish";
-                break;
-            case 6:
-                str = "Crocodile";
-                break;
-            case 7:
-                str = "Soccer ball";
-                break;
-            default:
-                str = "Not recognized";
-                break;
-        }
-         return str;
-    };
 }
