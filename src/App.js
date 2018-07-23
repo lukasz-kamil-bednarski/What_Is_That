@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from "./header/Header"
 import Content from './content/Content';
+import Footer from './footer/Footer'
 export default class App extends Component {
   constructor(props){
       super(props);
@@ -16,6 +17,7 @@ export default class App extends Component {
             <div className={"Root-container"} style={{width:this.windowWidth, height:this.windowHeight}}>
                 <Header/>
                 <Content/>
+                <Footer/>
             </div>
 
     );

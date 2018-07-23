@@ -1,12 +1,12 @@
 .Content-box{
-    background-color: #222222;
+    background-color: #333333;
     display: flex;
 }
 .Input-box{
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-right: dotted 2px #f1f1f1;
+    border-right: solid 2px #f1f1f1;
     justify-content: center;
     flex: 1;
 }
@@ -76,7 +76,7 @@
 }
 .Image-box button:hover{
     color:#f1f1f1;
-    background-color: #222222;
+    background-color: #333333;
     border: solid 2px #f1f1f1;
 
 }

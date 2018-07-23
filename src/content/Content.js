@@ -46,9 +46,9 @@ export default class Content extends React.Component{
             let img = new Image();
             img.onload = function(){
 
-                ctx.canvas.width = 150;
-                ctx.canvas.height = 150;
-                ctx.drawImage(img,0,0,150,150);
+                ctx.canvas.width = 400;
+                ctx.canvas.height = 400;
+                ctx.drawImage(img,0,0,400,400);
             };
             img.src = event.target.result;
         };
@@ -64,13 +64,17 @@ export default class Content extends React.Component{
      */
         async loadModel(){
       /*
-        Model for development
-       */
+        Model for development 150x150
       this.model = await tf.loadModel("https://rawgit.com/lukasy09/IchLerneCNN.py/master/Objects/src/Model/model_js/model.json");
+      */
+        /*
+          Model for development 400x400
+         */
+
+        this.model = await tf.loadModel("https://rawgit.com/lukasy09/IchLerneCNN.py/master/Objects/src/Model/model_js_400x400/model.json/model.json")
 
       /*
-       Model for build.
-
+       Model for build 400x400
        */
       };
 
@@ -82,7 +86,7 @@ export default class Content extends React.Component{
 
            let canvas = this.refs.canvas;
            let ctx = canvas.getContext("2d");
-           let imageData = ctx.getImageData(0, 0, 150, 150);
+           let imageData = ctx.getImageData(0, 0, 400, 400);
 
            let pixels = tf.fromPixels(imageData, 3);
            let batched = pixels.expandDims(0);
