@@ -70,13 +70,13 @@ export default class Content extends React.Component{
         /*
           Model for development 400x400
          */
-        this.model = await tf.loadModel("https://rawgit.com/lukasy09/IchLerneCNN.py/master/Objects/src/Model/model_js_400x400/model.json/model.json")
+        //this.model = await tf.loadModel("https://rawgit.com/lukasy09/IchLerneCNN.py/master/Objects/src/Model/model_js_400x400/model.json/model.json")
 
 
-      /*
-       Model for build 400x400
+
+      // Model for build 400x400
        this.model = await tf.loadModel('https://cdn.rawgit.com/lukasy09/IchLerneCNN.py/e5a7fb28/Objects/src/Model/model_js_400x400/model.json/model.json');
-       */
+
       };
 
     /**
