@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from "./header/Header"
-import Content from './Content/Content';
+import Content from './content/Content';
 export default class App extends Component {
   constructor(props){
       super(props);

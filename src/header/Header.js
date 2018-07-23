@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from '../images/logo1.png'
-import "./Header.css"
+import logo from '../images/logo1.png';
+import "./Header.css";
 export default class Header extends React.Component{
     render(){
         return(
@@ -8,21 +8,26 @@ export default class Header extends React.Component{
                 <ul>
                     <li style={{margin:'0 5px'}}><img alt={"ML-logo"} className={"Brain"} width={50} height={50} src={logo} title={"What is That?"}/></li>
                     <li>
-                        <p>Machine Learning - Object classifier</p>
+                        <p>What is that?</p>
                     </li>
 
                 </ul>
                 <ul style={{marginRight:'1.5%'}}>
                     <li>
-                        <div className={"circle-text"} title={"GitHub"}>
-                        </div>
+                     <a href={"https://www.github.com/lukasy09"}> <div className={"circle-text"} style={{marginLeft:'5px'}} title={"GitHub"}>
+                     </div></a>
                     </li>
                     <li>
-                        <div className={"circle-text-fb"} title={"Facebook"}>
-                        </div>
+                        <a href={"https://www.facebook.com/lukasy09"}><div className={"circle-text-fb"} style={{marginLeft:'5px'}} title={"Facebook"}>
+                        </div></a>
                     </li>
                 </ul>
             </div>
         )
     }
+    redirect=()=>{
+        window.location="https://www.google.com"
+    }
+
+
 }
