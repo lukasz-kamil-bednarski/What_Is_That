@@ -1,14 +1,10 @@
 import React from 'react';
 import './Footer.css';
 import '../utils/StyleManager';
-import StyleManager from "../utils/StyleManager";
+
 export default class Footer extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            viewListObjects : false,
-        };
-
     };
     render(){
         return(
@@ -22,7 +18,7 @@ export default class Footer extends React.Component{
                     <h2>About</h2>
                     <p>The project is a result of my training&gaining skills at Machine Learning&Data science.</p>
                     <p>For now, there are 8 available classes of objects which may be distinguished by my model.</p>
-                    <a><span onClick={()=>this.downloadList()}>Download list</span></a>
+                    <a ref={"download"}><span onClick={()=>this.downloadList()}>Download list</span></a>
                 </div>
             </li>
 
@@ -32,7 +28,7 @@ export default class Footer extends React.Component{
                     <ol>
                         <li><span>&#x2709;</span>lukasy09@gmail.com</li>
                         <li><span> &#x260F;</span>606148562</li>
-                        <li><a ref={"download"} href={"https://facebook.com/lukasy09"}>Lukasz Bednarski</a> on facebook</li>
+                        <li><a href={"https://facebook.com/lukasy09"}>Lukasz Bednarski</a> on facebook</li>
                     </ol>
                     </div>
              </li>
@@ -52,12 +48,17 @@ export default class Footer extends React.Component{
     }
 
     downloadList = ()=>{
-        let download = this.refs.download;
-        let infoFile = new File(["info"], "./info.txt", {
-            type: "text/plain",
-        });
-        download.setAttribute("href", infoFile);
-        download.setAttribute("download","info.txt");
-        download.click();
+        let downloadTag = this.refs.download;
+        downloadTag.href = window.URL.createObjectURL(new Blob(
+            ['1.Human face\n' +
+            '2.Butterfly\n' +
+            '3.Cougar body\n' +
+            '4.Cougar face\n' +
+            '5.Crab\n' +
+            '6.Crayfish\n' +
+            '7.Crocodile\n' +
+            '8.Soccer ball'], {type: 'plain/text'}));
+        downloadTag.download = 'info.txt';
+
     }
 }

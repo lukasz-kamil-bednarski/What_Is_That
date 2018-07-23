@@ -29,9 +29,9 @@ ul > li > p{
     background: url("../images/git.svg");
 }
 .circle-text-fb {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    color: #fff;
-    background: url("../images/fb.svg");
-}
+     width: 50px;
+     height: 50px;
+     border-radius: 50%;
+     color: #fff;
+     background: url("../images/fb.svg");
+ }

@@ -38,8 +38,7 @@
 }
 .Info ol li{
     font-size: 10pt;
-    padding: 5px;
-    margin-top: 2px;
+
 }
 .Info h2{
     margin:0;
@@ -56,6 +55,10 @@
 a{
     text-decoration: none;
     color: #f1f1f1;
+}
+a:hover{
+    color: cornflowerblue;
+    cursor: pointer;
 }
 .Footer-container ul {
     padding: 0;
