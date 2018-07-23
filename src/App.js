@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import './App.css';
 import Header from "./header/Header"
 import Content from './Content/Content';
-class App extends Component {
+export default class App extends Component {
   constructor(props){
       super(props);
 
       /*
-          Used variables
+        Sizes of external the root container.
        */
       this.windowWidth = window.innerWidth;
       this.windowHeight = window.innerHeight;
-
   }
 
   render() {
@@ -25,4 +23,4 @@ class App extends Component {
   }
 }
 
-export default App;
+

@@ -2,11 +2,11 @@ import React from 'react';
 import "./Content.css";
 import * as tf from '@tensorflow/tfjs'
 export default class Content extends React.Component{
+
     constructor(props){
         super(props);
-
         this.state = {
-            result : ''
+            result : '' //it's a string
         }
 
     }
@@ -31,6 +31,10 @@ export default class Content extends React.Component{
         )
     }
 
+    /**
+     * @param e -> represents event of selecting a file
+     */
+
     selectFile = (e)=>{
         let canvas = this.refs.canvas;
         let ctx = canvas.getContext("2d");
@@ -51,8 +55,10 @@ export default class Content extends React.Component{
 
 
   async loadModel(){
-
-                    this.model = await tf.loadModel("https://rawgit.com/lukasy09/IchLerneCNN.py/master/Objects/src/Model/model_js/model.json");
+      /*
+        Model for development
+       */
+      this.model = await tf.loadModel("https://rawgit.com/lukasy09/IchLerneCNN.py/master/Objects/src/Model/model_js/model.json");
                   };
 
    get_prediction = ()=>{
@@ -117,6 +123,4 @@ export default class Content extends React.Component{
         }
          return str;
     };
-
-
 }
