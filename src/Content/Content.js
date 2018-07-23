@@ -1,12 +1,14 @@
 import React from 'react';
 import "./Content.css";
-import * as tf from '@tensorflow/tfjs'
-import Converter from '../utils/Converter'
+import * as tf from '@tensorflow/tfjs';
+import Converter from '../utils/Converter';
+import StyleManager from '../utils/StyleManager';
 export default class Content extends React.Component{
 
     constructor(props){
         super(props);
         this.state = {
+            loadedData : false,
             result : '' //it's a string
         }
 
@@ -18,7 +20,7 @@ export default class Content extends React.Component{
         return(
             <div className="Content-box" style={{width:window.innerWidth, height:window.innerHeight-50}}>
                 <div className={"Input-box"} style={{width:window.innerWidth/3,height:window.innerHeight-50}}>
-                    <span title={"Click below!"}>&#x21CA;</span>
+                    <span style={StyleManager.arrowStyleHandle(this.state.loadedData)} title={"Click below!"}>&#x21CA;</span>
                     <input id="file" className={"Image-input"} onChange={(e)=>{this.selectFile(e)}} type='file' title="your text" />
                     <label htmlFor={"file"} className={"Image-input-label"}>Choose a file</label>
                 </div>
@@ -36,7 +38,7 @@ export default class Content extends React.Component{
      * @param e -> represents event of selecting a file
      */
 
-    selectFile = (e)=>{
+  selectFile = (e)=>{
         let canvas = this.refs.canvas;
         let ctx = canvas.getContext("2d");
         let reader = new FileReader();
@@ -51,39 +53,49 @@ export default class Content extends React.Component{
             img.src = event.target.result;
         };
         reader.readAsDataURL(e.target.files[0]);
-
+        this.setState({
+            loadedData:true
+        })
     };
 
     /**
      * Loading the pre-trained model.
      * @returns {Promise<void>}
      */
-  async loadModel(){
+        async loadModel(){
       /*
         Model for development
        */
       this.model = await tf.loadModel("https://rawgit.com/lukasy09/IchLerneCNN.py/master/Objects/src/Model/model_js/model.json");
-                  };
+
+      /*
+       Model for build.
+
+       */
+      };
 
     /**
      * Getting image data from canvas&preparing data for prediction&predicting.
      */
-   get_prediction = ()=>{
-       let canvas = this.refs.canvas;
-       let ctx = canvas.getContext("2d");
-       let imageData = ctx.getImageData(0,0,150,150);
+    get_prediction = ()=>{
+       if(this.state.loadedData) {
 
-       let pixels = tf.fromPixels(imageData,3);
-       let batched = pixels.expandDims(0);
-       const output = this.model.predict(batched);
-       let data = Array.from(output.dataSync());
+           let canvas = this.refs.canvas;
+           let ctx = canvas.getContext("2d");
+           let imageData = ctx.getImageData(0, 0, 150, 150);
 
-      let results = Converter.convertToArray(data);
-      let str = Converter.resultsToStr(results);
+           let pixels = tf.fromPixels(imageData, 3);
+           let batched = pixels.expandDims(0);
+           const output = this.model.predict(batched);
+           let data = Array.from(output.dataSync());
 
-      this.setState({
-          result:str
-      })
+           let results = Converter.convertToArray(data);
+           let str = Converter.resultsToStr(results);
+
+           this.setState({
+               result: str
+           });
+       }
 
    };
 

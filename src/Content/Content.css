@@ -14,7 +14,7 @@
     color: #f1f1f1;
     font-weight: bolder;
     font-size: 144pt;
-    animation: shake 3s infinite cubic-bezier(.36,.07,.19,.97) both;
+    /*animation: shake 3s infinite cubic-bezier(.36,.07,.19,.97) both;*/
 }
 .Input-box span:hover{
     animation: shake 3s infinite cubic-bezier(.36,.07,.19,.97) both;
@@ -65,12 +65,20 @@
     flex-direction: column;
 }
 .Image-box button{
-    color: #f1f1f1;
+    color: #222222;
     font-weight: bolder;
     font-size: 32pt;
-    background-color: darkred;
+    background-color: #f1f1f1;
     border-radius: 20px;
     margin-bottom: 2%;
+    cursor:pointer;
+    border: solid 2px #222222;
+}
+.Image-box button:hover{
+    color:#f1f1f1;
+    background-color: #222222;
+    border: solid 2px #f1f1f1;
+
 }
 canvas{
     border: dotted 2px #f1f1f1;

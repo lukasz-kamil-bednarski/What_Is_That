@@ -4,9 +4,8 @@ export default class Converter {
      * @param results -> array with 0's and (hopefully) 1.
      * @returns {*}
      */
-    static resultsToStr=(results)=>{
+  static resultsToStr=(results)=>{
         let winningIndex = results.indexOf(1);
-        console.log(winningIndex);
         let str;
         switch (winningIndex) {
             case 0:
@@ -41,7 +40,7 @@ export default class Converter {
     };
 
 
-   static convertToArray = (data) => {
+  static convertToArray = (data) => {
         let outputArray = [];
         data.forEach((num)=>{
             outputArray.push(num)
