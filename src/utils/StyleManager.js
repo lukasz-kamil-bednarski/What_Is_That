@@ -5,4 +5,11 @@ export default class StyleManager {
         }
         return null;
     };
+    static viewListStyle = (condition) =>{
+        if(condition) {
+            return null;
+        }
+        return {display:'none'};
+
+    }
 }

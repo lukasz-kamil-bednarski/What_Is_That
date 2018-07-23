@@ -43,7 +43,6 @@
 }
 .Info h2{
     margin:0;
-    padding: 5px;
 }
 .Info ol li span{
     margin-right: 1px;
@@ -66,4 +65,8 @@ a{
 }
 .Footer-container ul li {
     margin-right: 5%;
+}
+ul .Info ol li {
+    margin: 0;
+    padding: 0;
 }

@@ -1,12 +1,14 @@
 import React from 'react';
 import './Footer.css';
-
+import '../utils/StyleManager';
+import StyleManager from "../utils/StyleManager";
 export default class Footer extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            viewList : false
-        }
+            viewListObjects : false,
+        };
+
     };
     render(){
         return(
@@ -20,16 +22,7 @@ export default class Footer extends React.Component{
                     <h2>About</h2>
                     <p>The project is a result of my training&gaining skills at Machine Learning&Data science.</p>
                     <p>For now, there are 8 available classes of objects which may be distinguished by my model.</p>
-                    <ol>
-                        <li>Human face</li>
-                        <li>Butterfly</li>
-                        <li>Cougar body</li>
-                        <li>Cougar face</li>
-                        <li>Crab</li>
-                        <li>Crayfish</li>
-                        <li>Crocodile</li>
-                        <li>Soccer ball</li>
-                    </ol>
+                    <span onClick={()=>this.downloadList()}>Download list</span>
                 </div>
             </li>
 
@@ -56,5 +49,11 @@ export default class Footer extends React.Component{
 
             </ul>
         </div>)
+    }
+
+    downloadList = ()=>{
+        this.setState({
+            viewListObjects: !this.state.viewListObjects
+        });
     }
 }
