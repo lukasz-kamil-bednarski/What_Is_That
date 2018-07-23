@@ -3,9 +3,6 @@ import './Footer.css';
 import '../utils/StyleManager';
 
 export default class Footer extends React.Component{
-    constructor(props){
-        super(props);
-    };
     render(){
         return(
         <div className={"Footer-container"} style={{width:window.innerWidth}}>
@@ -39,6 +36,7 @@ export default class Footer extends React.Component{
                         <li><a href={"https://www.udemy.com/machinelearning/"}>Udemy ML course</a></li>
                         <li><a href={"https://www.youtube.com/watch?v=FmpDIaiMIeA"}>Video on CNN&ML</a></li>
                         <li><a href={"https://github.com/SkalskiP/ILearnMachineLearning.js"}>SkalskiP's repository</a></li>
+                        <li><a href={"https://github.com/lukasy09/IchLerneCNN.py/blob/master/Objects/src/Model/model_js/model.json"}>Hosted model</a></li>
                     </ol>
                 </div>
             </li>
