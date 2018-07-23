@@ -20,16 +20,11 @@
 
 <h2>Links</h2>
 <p>Resources that I have used to learn about ML and create the projects and other links</p>
-[Udemy crash course][1]
-[IchLerneCNN.py - my repository storing the code of creating "the backend model"][2]
-[Keras tutorial playlist][3]
-[TensorFlowjs docs][4]
-[Piotr Skalski's repository with similar projects][5]
-[Piotr Skalski's article on ML and steps in creating such projects][6]
 
-[1]: https://www.udemy.com/machinelearning/
-[2]: https://www.youtube.com/watch?v=RznKVRTFkBY&list=PLZbbT5o_s2xrwRnXk_yCPtnqqo4_u2YGL
-[3]: https://github.com/lukasy09/IchLerneCNN.py
-[4]: https://js.tensorflow.org/tutorials/
-[5]: https://github.com/SkalskiP/ILearnMachineLearning.js
-[6]:https://medium.com/@piotr.skalski92/my-first-tensorflow-js-project-b481bdad17fb
+
+<a href="https://www.udemy.com/machinelearning/">Udemy crash course</a>
+<a href="https://github.com/lukasy09/IchLerneCNN.py">My repository storing the code of creating "the backend model</a>
+<a href="https://www.youtube.com/watch?v=RznKVRTFkBY&list=PLZbbT5o_s2xrwRnXk_yCPtnqqo4_u2YGL">Keras tutorial playlist</a>
+<a href="https://js.tensorflow.org/tutorials/">TensorFlowjs docs</a>
+<a href="https://github.com/SkalskiP/ILearnMachineLearning.js">Piotr Skalski's repository with similar projects</a>
+<a href="https://medium.com/@piotr.skalski92/my-first-tensorflow-js-project-b481bdad17fb">Piotr Skalski's article on ML and steps in creating such projects</a>
