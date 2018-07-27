@@ -27,7 +27,7 @@ export default class Content extends React.Component{
 
                 <div className={"Image-box"} >
                     <button onClick={()=>this.get_prediction()}>Predict</button>
-                    <canvas ref={"canvas"} height={400} width={400}> </canvas>
+                    <canvas ref={"canvas"} height={200} width={200}> </canvas>
                     <span>Prediction:{this.state.result}</span>
                 </div>
             </div>
@@ -46,9 +46,9 @@ export default class Content extends React.Component{
             let img = new Image();
             img.onload = function(){
 
-                ctx.canvas.width = 400;
-                ctx.canvas.height = 400;
-                ctx.drawImage(img,0,0,400,400);
+                ctx.canvas.width = 200;
+                ctx.canvas.height = 200;
+                ctx.drawImage(img,0,0,200,200);
             };
             img.src = event.target.result;
         };
@@ -63,19 +63,15 @@ export default class Content extends React.Component{
      * @returns {Promise<void>}
      */
         async loadModel(){
-      /*
-        Model for development 150x150
-      this.model = await tf.loadModel("https://rawgit.com/lukasy09/IchLerneCNN.py/master/Objects/src/Model/model_js/model.json");
-      */
         /*
-          Model for development 400x400
+          Model for development 200x200
          */
-        //this.model = await tf.loadModel("https://rawgit.com/lukasy09/IchLerneCNN.py/master/Objects/src/Model/model_js_400x400/model.json/model.json")
+        this.model = await tf.loadModel("https://rawgit.com/lukasy09/IchLerneCNN.py/master/Objects/src/Model/model_js_200x200/model.json/model.json");
 
 
 
       // Model for build 400x400
-       this.model = await tf.loadModel('https://cdn.rawgit.com/lukasy09/IchLerneCNN.py/e5a7fb28/Objects/src/Model/model_js_400x400/model.json/model.json');
+      // this.model = await tf.loadModel('https://cdn.rawgit.com/lukasy09/IchLerneCNN.py/e5a7fb28/Objects/src/Model/model_js_400x400/model.json/model.json');
 
       };
 
@@ -87,7 +83,7 @@ export default class Content extends React.Component{
 
            let canvas = this.refs.canvas;
            let ctx = canvas.getContext("2d");
-           let imageData = ctx.getImageData(0, 0, 400, 400);
+           let imageData = ctx.getImageData(0, 0, 200, 200);
 
            let pixels = tf.fromPixels(imageData, 3);
            let batched = pixels.expandDims(0);
@@ -95,11 +91,12 @@ export default class Content extends React.Component{
            let data = Array.from(output.dataSync());
 
            let results = Converter.convertToArray(data);
-           let str = Converter.resultsToStr(results);
+           console.log(results);
+          // let str = Converter.resultsToStr(results);
 
-           this.setState({
-               result: str
-           });
+           // this.setState({
+           //     result: str
+           // });
        }
 
    };

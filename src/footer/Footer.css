@@ -3,9 +3,9 @@
     color: #f1f1f1;
     display: flex;
     flex-direction: row;
-    padding: 10px;
     justify-content: space-between;
     margin: 0;
+    padding: 0;
     align-items: center;
 }
 .Title{
@@ -29,7 +29,8 @@
     display: flex;
     color: #f1f1f1;
     flex-direction: column;
-
+    padding: 0;
+    margin: 0;
 }
 .Info ol{
     margin: 0;
@@ -38,7 +39,6 @@
 }
 .Info ol li{
     font-size: 10pt;
-
 }
 .Info h2{
     margin:0;
@@ -52,24 +52,20 @@
 .Info p{
     font-size: 10pt;
 }
-a{
-    text-decoration: none;
-    color: #f1f1f1;
+
+
+.Footer-container ul {
+    margin:0;
+    padding: 0;
+    display: flex;
 }
+
+
 a:hover{
     color: cornflowerblue;
     cursor: pointer;
 }
-.Footer-container ul {
-    padding: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: left;
-}
-.Footer-container ul li {
-    margin-right: 5%;
-}
-ul .Info ol li {
-    margin: 0;
-    padding: 0;
+a{
+    text-decoration: none;
+    color: #f1f1f1;
 }

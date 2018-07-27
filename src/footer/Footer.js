@@ -5,7 +5,7 @@ import '../utils/StyleManager';
 export default class Footer extends React.Component{
     render(){
         return(
-        <div className={"Footer-container"} style={{width:window.innerWidth}}>
+        <div className={"Footer-container"} style={{width:window.innerWidth-15}}>
                 <div className={"Title"}>
                     <span className={"Project"}>What is that?</span>
                     <span className={"Copyright"}><span>&copy;</span>What is that? All rights reserved. </span>
