@@ -55,11 +55,13 @@
 
 
 .Footer-container ul {
-    margin:0;
+    margin-right: 1%;
     padding: 0;
     display: flex;
 }
-
+.Footer-container ul li {
+    margin: 2%;
+}
 
 a:hover{
     color: cornflowerblue;
@@ -68,4 +70,7 @@ a:hover{
 a{
     text-decoration: none;
     color: #f1f1f1;
+}
+h2 > ol > li {
+    margin-top: 1%;
 }

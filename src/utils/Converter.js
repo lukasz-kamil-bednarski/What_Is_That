@@ -1,6 +1,6 @@
 export default class Converter {
-
     /**
+     * @deprecated
      * @param results -> array with 0's and (hopefully) 1.
      * @returns {*}
      */
@@ -39,7 +39,11 @@ export default class Converter {
         return str;
     };
 
-
+    /**
+     *
+     * @param data
+     * @returns {Array}
+     */
   static convertToArray = (data) => {
         let outputArray = [];
         data.forEach((num)=>{
@@ -47,18 +51,31 @@ export default class Converter {
         });
         return outputArray;
     };
-
-
-  static readJson = (file,callback) =>{
-      let rawFile = new XMLHttpRequest();
-      rawFile.overrideMimeType("application/json");
-      rawFile.open("GET", file, true);
-      rawFile.onreadystatechange = function() {
-          if (rawFile.readyState === 4 && rawFile.status === 200) {
-              callback(rawFile.responseText);
-          }
-      };
-      rawFile.send(null);
+    /**
+     * Mapping indexes to str values
+     * @param array
+     * @returns {*}
+     */
+  static mapToStr = (array) =>{
+        const STR_MAP={
+            0: 'Faces',
+            1 : 'accordion',
+            2 : 'binocular',
+            3: 'buddha',
+            4: 'butterfly',
+            5: 'camera',
+            6: 'cougar_body',
+            7: 'cougar_face',
+            8: 'crab',
+            9: 'crayfish',
+            10: 'crocodile',
+            11:'soccer ball'};
+      let max = Math.max(...array);
+      let winningIndex = array.indexOf(max);
+      if(winningIndex === 0){
+          return "unrecognized";
+      }
+      return STR_MAP[winningIndex];
   }
 
 }

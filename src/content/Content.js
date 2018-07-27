@@ -66,12 +66,12 @@ export default class Content extends React.Component{
         /*
           Model for development 200x200
          */
-        this.model = await tf.loadModel("https://rawgit.com/lukasy09/What_Is_That/master/src/Model/model.json");
+       // this.model = await tf.loadModel("https://rawgit.com/lukasy09/What_Is_That/master/src/model.json/model.json");
 
-
-
-      // Model for build 400x400
-      // this.model = await tf.loadModel('https://cdn.rawgit.com/lukasy09/IchLerneCNN.py/e5a7fb28/Objects/src/Model/model_js_400x400/model.json/model.json');
+        /*
+         Model for build 200x200
+           */
+         this.model = await tf.loadModel("https://cdn.rawgit.com/lukasy09/What_Is_That/76527c37/src/model.json/model.json");
 
       };
 
@@ -91,12 +91,11 @@ export default class Content extends React.Component{
            let data = Array.from(output.dataSync());
 
            let results = Converter.convertToArray(data);
-           console.log(results);
-          // let str = Converter.resultsToStr(results);
+           let str = Converter.mapToStr(results);
 
-           // this.setState({
-           //     result: str
-           // });
+            this.setState({
+                result: str
+            });
        }
 
    };

@@ -48,15 +48,21 @@ export default class Footer extends React.Component{
     downloadList = ()=>{
         let downloadTag = this.refs.download;
         downloadTag.href = window.URL.createObjectURL(new Blob(
-            ['1.Human face\n' +
-            '2.Butterfly\n' +
-            '3.Cougar body\n' +
-            '4.Cougar face\n' +
-            '5.Crab\n' +
-            '6.Crayfish\n' +
-            '7.Crocodile\n' +
-            '8.Soccer ball'], {type: 'plain/text'}));
-        downloadTag.download = 'info.txt';
+            ["{" +
+            "0: 'Faces',\n" +
+            "1 : 'accordion',\n" +
+            "2 : 'binocular',\n" +
+            "3: 'buddha',\n" +
+            "4: 'butterfly',\n" +
+            "5: 'camera',\n" +
+            "6: 'cougar_body',\n" +
+            "7: 'cougar_face',\n" +
+            "8: 'crab',\n" +
+            "9: 'crayfish',\n" +
+            "10: 'crocodile',\n" +
+            "11:'soccer ball'"+
+            "\n}"], {type: 'application/json'}));
+        downloadTag.download = 'info.json';
 
     }
 }
