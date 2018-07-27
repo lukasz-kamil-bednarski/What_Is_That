@@ -66,7 +66,7 @@ export default class Content extends React.Component{
         /*
           Model for development 200x200
          */
-        this.model = await tf.loadModel("https://rawgit.com/lukasy09/IchLerneCNN.py/master/Objects/src/Model/model_js_200x200/model.json/model.json");
+        this.model = await tf.loadModel("https://rawgit.com/lukasy09/What_Is_That/master/src/Model/model.json");
 
 
 
