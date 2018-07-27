@@ -72,9 +72,7 @@ export default class Converter {
             11:'soccer ball'};
       let max = Math.max(...array);
       let winningIndex = array.indexOf(max);
-      if(winningIndex === 0){
-          return "unrecognized";
-      }
+
       return STR_MAP[winningIndex];
   }
 
