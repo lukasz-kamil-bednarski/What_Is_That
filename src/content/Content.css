@@ -1,6 +1,7 @@
 .Content-box{
     background-color: #333333;
     display: flex;
+    padding: 0;
 }
 .Input-box{
     display: flex;
@@ -88,6 +89,9 @@ canvas{
     font-weight: bolder;
     font-size: 32pt;
     border-radius: 20%;
-
-
+}
+.Camera{
+    cursor: pointer;
+    margin-right: 2%;
+    margin-top: 1%;
 }

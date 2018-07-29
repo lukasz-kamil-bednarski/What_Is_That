@@ -26,12 +26,12 @@ ul > li > p{
     height: 50px;
     border-radius: 50%;
     color: #fff;
-    background: url("../images/git.svg");
+    background: url("../assets/git.svg");
 }
 .circle-text-fb {
      width: 50px;
      height: 50px;
      border-radius: 50%;
      color: #fff;
-     background: url("../images/fb.svg");
+     background: url("../assets/fb.svg");
  }

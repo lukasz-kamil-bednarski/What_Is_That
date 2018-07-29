@@ -14,7 +14,7 @@ export default class App extends Component {
 
   render() {
     return (
-            <div className={"Root-container"} style={{width:this.windowWidth, height:this.windowHeight}}>
+            <div className={"Root-container"} style={{width:this.windowWidth, height:this.windowHeight,padding:'0',margin:'0'}}>
                 <Header/>
                 <Content/>
                 <Footer/>

@@ -1,0 +1,26 @@
+.Video-container{
+    background-color: #333333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.Snapshot-button{
+    margin-top: 2%;
+    color: #222222;
+    font-weight: bolder;
+    font-size: 32pt;
+    background-color: #f1f1f1;
+    border-radius: 20px;
+    margin-bottom: 2%;
+    cursor:pointer;
+    border: solid 2px #222222;
+}
+.Snapshot-button:hover{
+    color:#f1f1f1;
+    background-color: #333333;
+    border: solid 2px #f1f1f1;
+}
+video{
+    border: solid 6px #f1f1f1;
+}
