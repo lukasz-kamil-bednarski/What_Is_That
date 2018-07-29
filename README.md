@@ -18,6 +18,12 @@
 <img src="video/objects.gif">
 </p>
 
+<p>You can take your own photo and predict</p>
+
+<p align="center"> 
+<img src="video/camera.gif">
+</p>
+
 <h2>Links</h2>
 <p>Resources that I have used to learn about ML and create the projects and other links</p>
 

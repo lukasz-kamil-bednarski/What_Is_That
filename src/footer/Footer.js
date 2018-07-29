@@ -25,7 +25,7 @@ export default class Footer extends React.Component{
                     <ol>
                         <li><span>&#x2709;</span>lukasy09@gmail.com</li>
                         <li><span> &#x260F;</span>606148562</li>
-                        <li><a href={"https://facebook.com/lukasy09"}>Lukasz Bednarski</a> on facebook</li>
+                        <li><a target={"_blank"}  href={"https://facebook.com/lukasy09"}>Lukasz Bednarski</a> on facebook</li>
                     </ol>
                     </div>
              </li>
@@ -33,10 +33,10 @@ export default class Footer extends React.Component{
             <li><div className={"Info"}>
                 <h2>Links</h2>
                     <ol>
-                        <li><a href={"https://www.udemy.com/machinelearning/"}>Udemy ML course</a></li>
-                        <li><a href={"https://www.youtube.com/watch?v=FmpDIaiMIeA"}>Video on CNN&ML</a></li>
-                        <li><a href={"https://github.com/SkalskiP/ILearnMachineLearning.js"}>SkalskiP's repository</a></li>
-                        <li><a href={"https://github.com/lukasy09/IchLerneCNN.py/blob/master/Objects/src/Model/model_js/model.json"}>Hosted model</a></li>
+                        <li><a target={"_blank"} href={"https://www.udemy.com/machinelearning/"}>Udemy ML course</a></li>
+                        <li><a target={"_blank"} href={"https://www.youtube.com/watch?v=FmpDIaiMIeA"}>Video on CNN&ML</a></li>
+                        <li><a target={"_blank"} href={"https://github.com/SkalskiP/ILearnMachineLearning.js"}>SkalskiP's repository</a></li>
+                        <li><a target={"_blank"} href={"https://github.com/lukasy09/IchLerneCNN.py/blob/master/Objects/src/Model/model_js/model.json"}>Hosted model</a></li>
                     </ol>
                 </div>
             </li>

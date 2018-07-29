@@ -14,11 +14,11 @@ export default class Header extends React.Component{
                 </ul>
                 <ul style={{marginRight:'1.5%'}}>
                     <li>
-                     <a href={"https://www.github.com/lukasy09"}> <div className={"circle-text"} style={{marginLeft:'5px'}} title={"GitHub"}>
+                     <a href={"https://www.github.com/lukasy09"} target={"_blank"}> <div className={"circle-text"} style={{marginLeft:'5px'}} title={"GitHub"}>
                      </div></a>
                     </li>
                     <li>
-                        <a href={"https://www.facebook.com/lukasy09"}><div className={"circle-text-fb"} style={{marginLeft:'5px'}} title={"Facebook"}>
+                        <a href={"https://www.facebook.com/lukasy09"} target={"_blank"}><div className={"circle-text-fb"} style={{marginLeft:'5px'}} title={"Facebook"}>
                         </div></a>
                     </li>
                 </ul>
