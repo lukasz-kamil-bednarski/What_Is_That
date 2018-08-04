@@ -18,7 +18,7 @@ export default class Content extends React.Component {
     }
 
     componentWillMount() {
-        this.loadModel();
+        this.loadModel().then()
     }
 
     render() {
@@ -41,7 +41,7 @@ export default class Content extends React.Component {
                         <canvas ref={"canvas"} height={200} width={200}> </canvas>
                         <span>Prediction:{this.state.result}</span>
                     </div>
-                    <img alt="Camera" onClick={() => this.getVideoMode()} src={camera} className={"Camera"} width={50} height={50}
+                    <img alt={"Camera mode"} onClick={() => this.getVideoMode()} src={camera} className={"Camera"} width={50} height={50}
                          title={"Camera"}/>
 
                 </div>
@@ -75,7 +75,7 @@ export default class Content extends React.Component {
         reader.readAsDataURL(e.target.files[0]);
         this.setState({
             loadedData: true
-        });
+        })
     };
 
     /**
@@ -91,7 +91,8 @@ export default class Content extends React.Component {
         /*
          Model for build 200x200
            */
-        this.model = await tf.loadModel("https://cdn.rawgit.com/lukasy09/What_Is_That/76527c37/src/model.json/model.json");
+        this.model = await tf.loadModel("https://raw.githubusercontent.com/lukasy09/IchLerneCNN.py/master/Objects/src/models/model_3.json/model.json");
+
 
     };
 
@@ -112,6 +113,8 @@ export default class Content extends React.Component {
 
             let results = Converter.convertToArray(data);
             let str = Converter.mapToStr(results);
+
+
             this.setState({
                 result: str
             });
@@ -128,7 +131,7 @@ export default class Content extends React.Component {
         this.setState({
             videoView: false
         });
-        this.drawImage(video);
+        this.drawImage(video).then();
     };
 
     async drawImage(video) {
