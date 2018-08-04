@@ -36,7 +36,8 @@ export default class Footer extends React.Component{
                         <li><a target={"_blank"} href={"https://www.udemy.com/machinelearning/"}>Udemy ML course</a></li>
                         <li><a target={"_blank"} href={"https://www.youtube.com/watch?v=FmpDIaiMIeA"}>Video on CNN&ML</a></li>
                         <li><a target={"_blank"} href={"https://github.com/SkalskiP/ILearnMachineLearning.js"}>SkalskiP's repository</a></li>
-                        <li><a target={"_blank"} href={"https://github.com/lukasy09/IchLerneCNN.py/blob/master/Objects/src/Model/model_js/model.json"}>Hosted model</a></li>
+                        <li><a target={"_blank"} href={"https://github.com/lukasy09/IchLerneCNN.py/blob/master/Objects/src/models/model_3.json/model.json"}>Hosted model</a></li>
+                        <li><a target={"_blank"} href={"https://github.com/lukasy09/IchLerneCNN.py/blob/master/Objects/src/objects_classification.ipynb"}>Kernel</a></li>
                     </ol>
                 </div>
             </li>

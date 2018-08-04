@@ -2,6 +2,7 @@
     background-color: #333333;
     display: flex;
     padding: 0;
+    border-bottom: solid 10px #212121;
 }
 .Input-box{
     display: flex;
