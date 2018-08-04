@@ -49,20 +49,29 @@ export default class Footer extends React.Component{
     downloadList = ()=>{
         let downloadTag = this.refs.download;
         downloadTag.href = window.URL.createObjectURL(new Blob(
-            ["{" +
-            "0: 'Faces',\n" +
-            "1 : 'accordion',\n" +
-            "2 : 'binocular',\n" +
-            "3: 'buddha',\n" +
-            "4: 'butterfly',\n" +
-            "5: 'camera',\n" +
-            "6: 'cougar_body',\n" +
-            "7: 'cougar_face',\n" +
-            "8: 'crab',\n" +
-            "9: 'crayfish',\n" +
-            "10: 'crocodile',\n" +
-            "11:'soccer ball'"+
-            "\n}"], {type: 'application/json'}));
+            ["({'Faces': 0,\n" +
+            "            'accordion': 1,\n" +
+            "            'barrel': 2,\n" +
+            "            'binocular': 3,\n" +
+            "            'buddha': 4,\n" +
+            "            'butterfly': 5,\n" +
+            "            'camera': 6,\n" +
+            "            'cougar_body': 7,\n" +
+            "            'cougar_face': 8,\n" +
+            "            'crab': 9,\n" +
+            "            'crayfish': 10,\n" +
+            "            'crocodile': 11,\n" +
+            "            'dalmatian': 12,\n" +
+            "            'scissors': 13,\n" +
+            "            'soccer_ball': 14,\n" +
+            "            'stegosaurus': 15,\n" +
+            "            'stop_sign': 16,\n" +
+            "            'strawberry': 17,\n" +
+            "            'sunflower': 18,\n" +
+            "            'tick': 19,\n" +
+            "            'trilobite': 20,\n" +
+            "            'umbrella': 21,\n" +
+            "            'watch': 22}"], {type: 'application/json'}));
         downloadTag.download = 'info.json';
 
     }
