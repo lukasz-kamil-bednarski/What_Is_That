@@ -125,12 +125,7 @@ export default class Content extends React.Component {
      */
     async loadModel() {
 
-        // this.model = await tf.loadModel("https://rawgit.com/lukasy09/What_Is_That/master/src/model.json/model.json");
-
          this.model = await tf.loadModel("https://raw.githubusercontent.com/lukasy09/IchLerneCNN.py/master/Objects/src/models/model_40.json/model.json");
-
-       // this.model = await tf.loadModel("https://raw.githubusercontent.com/lukasy09/IchLerneCNN.py/master/Objects/src/models/model_3.json/model.json");
-
 
     };
 
