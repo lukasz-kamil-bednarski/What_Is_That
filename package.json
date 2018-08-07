@@ -5,8 +5,11 @@
   "dependencies": {
     "@tensorflow/tfjs": "^0.12.3",
     "axios": "^0.18.0",
+    "canvasjs": "^1.8.1",
+    "chart.js": "^2.7.2",
     "keras-js": "^1.0.3",
     "react": "^16.4.1",
+    "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.4.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4"

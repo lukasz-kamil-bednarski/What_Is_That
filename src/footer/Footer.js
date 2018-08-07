@@ -14,7 +14,7 @@ export default class Footer extends React.Component{
              <li><div className={"Info"}>
                     <h2>About</h2>
                     <p>The project is a result of my training&gaining skills at Machine Learning&Data science.</p>
-                    <p>For now, there are 12 available classes of objects which may be distinguished by my model.</p>
+                    <p>For now, there are 40 available classes of objects which may be distinguished by my model.</p>
                     <a ref={"download"}><span onClick={()=>this.downloadList()}>Download list</span></a>
                 </div>
             </li>

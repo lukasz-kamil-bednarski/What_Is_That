@@ -64,7 +64,7 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 .Image-box button{
     color: #222222;
@@ -82,7 +82,7 @@
     border: solid 2px #f1f1f1;
 
 }
-canvas{
+.Image-box canvas{
     border: dotted 2px #f1f1f1;
 }
 .Image-box span {
@@ -91,8 +91,45 @@ canvas{
     font-size: 32pt;
     border-radius: 20%;
 }
+.Image-box ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 5%;
+}
+.Image-box ul li{
+    margin-top: 10%;
+}
 .Camera{
     cursor: pointer;
     margin-right: 2%;
     margin-top: 1%;
+}
+.Chart-box{
+    flex:2;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+}
+.Button-back{
+    position: absolute;
+    top: 2.5%;
+    left:20%;
+}
+.Button-back button{
+    color: #222222;
+    font-size: 16pt;
+    background-color: #f1f1f1;
+    border-radius: 20px;
+    cursor:pointer;
+    border: solid 2px #222222;
+}
+.Button-back button:hover{
+    color:#f1f1f1;
+    background-color: #333333;
+    border: solid 2px #f1f1f1;
 }

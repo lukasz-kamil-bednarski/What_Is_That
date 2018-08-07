@@ -57,35 +57,55 @@ export default class Converter {
      * @returns {*}
      */
   static mapToStr = (array) =>{
-        const STR_MAP =Converter.swap ({'Faces': 0,
-            'accordion': 1,
-            'barrel': 2,
-            'binocular': 3,
-            'buddha': 4,
-            'butterfly': 5,
-            'camera': 6,
-            'cougar_body': 7,
-            'cougar_face': 8,
-            'crab': 9,
-            'crayfish': 10,
-            'crocodile': 11,
-            'dalmatian': 12,
-            'scissors': 13,
-            'soccer_ball': 14,
-            'stegosaurus': 15,
-            'stop_sign': 16,
-            'strawberry': 17,
-            'sunflower': 18,
-            'tick': 19,
-            'trilobite': 20,
-            'umbrella': 21,
-            'watch': 22});
+        const STR_MAP =Converter.swap (
+            {'Faces': 0,
+                'Leopards': 1,
+                'accordion': 2,
+                'barrel': 3,
+                'binocular': 4,
+                'buddha': 5,
+                'butterfly': 6,
+                'camera': 7,
+                'cougar_body': 8,
+                'cougar_face': 9,
+                'crab': 10,
+                'crayfish': 11,
+                'crocodile': 12,
+                'dalmatian': 13,
+                'grand_piano': 14,
+                'hawksbill': 15,
+                'headphone': 16,
+                'hedgehog': 17,
+                'helicopter': 18,
+                'ibis': 19,
+                'inline_skate': 20,
+                'joshua_tree': 21,
+                'ketch': 22,
+                'lamp': 23,
+                'laptop': 24,
+                'menorah': 25,
+                'metronome': 26,
+                'minaret': 27,
+                'pigeon': 28,
+                'pizza': 29,
+                'scissors': 30,
+                'soccer_ball': 31,
+                'stegosaurus': 32,
+                'stop_sign': 33,
+                'strawberry': 34,
+                'sunflower': 35,
+                'tick': 36,
+                'trilobite': 37,
+                'umbrella': 38,
+                'watch': 39}
+        );
 
         let max = Math.max(...array);
       let winningIndex = array.indexOf(max);
 
       return STR_MAP[winningIndex];
   };
+
   static swap = (obj) =>{
 
       let swapped_obj = {};
@@ -97,6 +117,54 @@ export default class Converter {
       }
       return swapped_obj;
 
+  };
+
+  static getPropNames = () =>{
+      const obj = {'Faces': 0,
+          'Leopards': 1,
+          'accordion': 2,
+          'barrel': 3,
+          'binocular': 4,
+          'buddha': 5,
+          'butterfly': 6,
+          'camera': 7,
+          'cougar_body': 8,
+          'cougar_face': 9,
+          'crab': 10,
+          'crayfish': 11,
+          'crocodile': 12,
+          'dalmatian': 13,
+          'grand_piano': 14,
+          'hawksbill': 15,
+          'headphone': 16,
+          'hedgehog': 17,
+          'helicopter': 18,
+          'ibis': 19,
+          'inline_skate': 20,
+          'joshua_tree': 21,
+          'ketch': 22,
+          'lamp': 23,
+          'laptop': 24,
+          'menorah': 25,
+          'metronome': 26,
+          'minaret': 27,
+          'pigeon': 28,
+          'pizza': 29,
+          'scissors': 30,
+          'soccer_ball': 31,
+          'stegosaurus': 32,
+          'stop_sign': 33,
+          'strawberry': 34,
+          'sunflower': 35,
+          'tick': 36,
+          'trilobite': 37,
+          'umbrella': 38,
+          'watch': 39};
+      let list = [];
+      for(let prop in obj){
+          list.push(prop)
+      }
+      return list;
   }
 
 

@@ -5,6 +5,9 @@ import Converter from '../utils/Converter';
 import StyleManager from '../utils/StyleManager';
 import VideoView from './videoView/VideoView'
 import camera from '../assets/camera.png';
+import LoadingScreen from './LoadingScreen';
+import {Bar} from 'react-chartjs-2'
+
 export default class Content extends React.Component {
 
     constructor(props) {
@@ -12,46 +15,83 @@ export default class Content extends React.Component {
         this.state = {
             loadedData: false,
             result: '', //it's a string,
-            videoView: false
+            videoView: false,
+            isModelLoaded: false,
+            showGraph: false,
+
+            charData : {
+                options:{
+                legend: {
+                    labels: Converter.getPropNames(),
+                    fontColor:'#f1f1f1'
+                }},
+                datasets:[
+                    {
+                        label:'Propablities',
+                        data : []
+                    }
+                ]
+            }
         }
 
     }
 
     componentWillMount() {
-        this.loadModel().then()
+        this.loadModel().then(()=> this.setState({isModelLoaded:true,result:''}));
+        console.log(Converter.getPropNames())
     }
 
     render() {
-        return (
-            this.state.videoView ?
-                <VideoView takeSnapshot={this.takeSnapshot}/> :
-                <div className="Content-box" style={{width: window.innerWidth, height: window.innerHeight - 50}}>
-                    <div className={"Input-box"}
-                         style={{width: window.innerWidth / 3, height: window.innerHeight - 50}}>
+        if(!this.state.showGraph) {
+            return (
+                this.state.videoView ?
+                    <VideoView takeSnapshot={this.takeSnapshot}/> :
+                    this.state.isModelLoaded ?
+                        <div className="Content-box"
+                             style={{width: window.innerWidth, height: window.innerHeight - 50}}>
+                            <div className={"Input-box"}
+                                 style={{width: window.innerWidth / 3, height: window.innerHeight - 50}}>
                         <span style={StyleManager.arrowStyleHandle(this.state.loadedData)}
                               title={"Click below!"}>&#x21CA;</span>
-                        <input id="file" className={"Image-input"} onChange={(e) => {
-                            this.selectFile(e)
-                        }} type='file' title="your text"/>
-                        <label htmlFor={"file"} className={"Image-input-label"}>Choose a file</label>
+                                <input accept="image/x-png,image/jpeg" id="file" className={"Image-input"}
+                                       onChange={(e) => {
+                                           this.selectFile(e)
+                                       }} type='file' title="your text"/>
+                                <label htmlFor={"file"} className={"Image-input-label"}>Choose a file</label>
+                            </div>
+
+                            <div className={"Image-box"} >
+                                <ul>
+                                    <canvas ref={"canvas"} height={200} width={200}> </canvas>
+                                    <span>Prediction:{this.state.result}</span>
+                                </ul>
+
+                                <ul style={{marginLeft:'1%'}}>
+                                    <li><button onClick={() => this.get_prediction()}>Predict</button></li>
+                                    <li><button onClick={()=>this.showGraph()}>Graph</button></li>
+                                </ul>
+
+                            </div>
+                            <img alt={"Camera mode"} onClick={() => this.getVideoMode()} src={camera}
+                                 className={"Camera"} width={40} height={40}
+                                 title={"Camera"}/>
+
+                        </div> : <LoadingScreen/>
+            );
+        }else{
+                return(
+                    <div className="Content-box" style={{width: window.innerWidth, height: window.innerHeight - 50,padding:'10px',flexDirection:'column'}}>
+                        <div className={"Button-back"}>
+                            <button onClick={()=>this.setState({showGraph:false})}>Back</button>
+                        </div>
+
+                        <div className={"Chart-box"}>
+                            <Bar data = {this.state.charData}/>
+                        </div>
                     </div>
+                )
+        }
 
-                    <div className={"Image-box"}>
-                        <button onClick={() => this.get_prediction()}>Predict</button>
-                        <canvas ref={"canvas"} height={200} width={200}> </canvas>
-                        <span>Prediction:{this.state.result}</span>
-                    </div>
-                    <img alt={"Camera mode"} onClick={() => this.getVideoMode()} src={camera} className={"Camera"} width={50} height={50}
-                         title={"Camera"}/>
-
-                </div>
-        );
-
-    }
-
-    componentDidMount() {
-        this.canvas = this.refs.canvas;
-        this.context = this.canvas.getContext("2d");
     }
 
     /**
@@ -68,13 +108,14 @@ export default class Content extends React.Component {
 
                 ctx.canvas.width = 200;
                 ctx.canvas.height = 200;
-                ctx.drawImage(img, 0, 0, 200, 200);
+                ctx.drawImage(img, 0, 0, 200,200);
             };
             img.src = event.target.result;
         };
         reader.readAsDataURL(e.target.files[0]);
         this.setState({
             loadedData: true
+
         })
     };
 
@@ -83,15 +124,12 @@ export default class Content extends React.Component {
      * @returns {Promise<void>}
      */
     async loadModel() {
-        /*
-          Model for development 200x200
-         */
+
         // this.model = await tf.loadModel("https://rawgit.com/lukasy09/What_Is_That/master/src/model.json/model.json");
 
-        /*
-         Model for build 200x200
-           */
-        this.model = await tf.loadModel("https://raw.githubusercontent.com/lukasy09/IchLerneCNN.py/master/Objects/src/models/model_3.json/model.json");
+         this.model = await tf.loadModel("https://raw.githubusercontent.com/lukasy09/IchLerneCNN.py/master/Objects/src/models/model_40.json/model.json");
+
+       // this.model = await tf.loadModel("https://raw.githubusercontent.com/lukasy09/IchLerneCNN.py/master/Objects/src/models/model_3.json/model.json");
 
 
     };
@@ -99,25 +137,85 @@ export default class Content extends React.Component {
     /**
      * Getting image data from canvas&preparing data for prediction&predicting.
      */
-    get_prediction = () => {
+    async get_prediction (){
         if (this.state.loadedData) {
 
-            let canvas = this.refs.canvas;
-            let ctx = canvas.getContext("2d");
-            let imageData = ctx.getImageData(0, 0, 200, 200);
+            await tf.tidy(()=> {
+                let canvas = this.refs.canvas;
+                let ctx = canvas.getContext("2d");
+                let imageData = ctx.getImageData(0, 0, 200, 200);
 
-            let pixels = tf.fromPixels(imageData, 3);
-            let batched = pixels.expandDims(0);
-            const output = this.model.predict(batched);
-            let data = Array.from(output.dataSync());
+                let pixels = tf.fromPixels(imageData, 3);
 
-            let results = Converter.convertToArray(data);
-            let str = Converter.mapToStr(results);
+                let batched = pixels.expandDims(0);
+                batched = batched.toFloat().div(tf.scalar(255));
 
+                const output = this.model.predict(batched);
+                let data = Array.from(output.dataSync());
 
-            this.setState({
-                result: str
-            });
+                let results = Converter.convertToArray(data);
+                console.log(results);
+                let str = Converter.mapToStr(results);
+
+                this.setState({
+                    result: str,
+                    charData : {
+                            labels: Converter.getPropNames(),
+                            datasets:[
+                                {
+                                label:'Propablities',
+                                data :results,
+                                backgroundColor:[
+                                    'rgba(255, 0, 0, 0.3)',
+                                    'rgba(0, 255, 0, 0.3)',
+                                    'rgba(0, 0, 255, 0.3)',
+                                    'rgba(228, 63, 82, 1)',
+                                    'rgba(178, 221, 70, 1)',
+                                    'rgba(255, 0, 0, 0.3)',
+                                    'rgba(0, 255, 0, 0.3)',
+                                    'rgba(0, 0, 255, 0.3)',
+                                    'rgba(228, 63, 82, 1)',
+                                    'rgba(178, 221, 70, 1)',
+                                    'rgba(255, 0, 0, 0.3)',
+                                    'rgba(0, 255, 0, 0.3)',
+                                    'rgba(0, 0, 255, 0.3)',
+                                    'rgba(228, 63, 82, 1)',
+                                    'rgba(178, 221, 70, 1)',
+                                    'rgba(255, 0, 0, 0.3)',
+                                    'rgba(0, 255, 0, 0.3)',
+                                    'rgba(0, 0, 255, 0.3)',
+                                    'rgba(228, 63, 82, 1)',
+                                    'rgba(178, 221, 70, 1)',
+                                    'rgba(255, 0, 0, 0.3)',
+                                    'rgba(0, 255, 0, 0.3)',
+                                    'rgba(0, 0, 255, 0.3)',
+                                    'rgba(228, 63, 82, 1)',
+                                    'rgba(178, 221, 70, 1)',
+                                    'rgba(178, 221, 70, 1)',
+                                    'rgba(255, 0, 0, 0.3)',
+                                    'rgba(0, 255, 0, 0.3)',
+                                    'rgba(0, 0, 255, 0.3)',
+                                    'rgba(228, 63, 82, 1)',
+                                    'rgba(178, 221, 70, 1)',
+                                    'rgba(178, 221, 70, 1)',
+                                    'rgba(255, 0, 0, 0.3)',
+                                    'rgba(0, 255, 0, 0.3)',
+                                    'rgba(0, 0, 255, 0.3)',
+                                    'rgba(228, 63, 82, 1)',
+                                    'rgba(178, 221, 70, 1)',
+                                    'rgba(178, 221, 70, 1)',
+                                    'rgba(255, 0, 0, 0.3)',
+                                    'rgba(0, 255, 0, 0.3)',
+                                    'rgba(0, 0, 255, 0.3)',
+                                    'rgba(228, 63, 82, 1)',
+                                    'rgba(178, 221, 70, 1)',
+                                ],
+
+                            }
+                        ]
+                    }
+                });
+            })
         }
     };
 
@@ -140,5 +238,12 @@ export default class Content extends React.Component {
         this.setState({
             loadedData: true
         });
+    }
+
+
+    showGraph = ()=>{
+        this.setState({
+            showGraph : true
+        })
     }
 }
