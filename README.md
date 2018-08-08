@@ -26,10 +26,10 @@
 </p>
 
 <p>You can install the project on your own computer</p>
-```
- # git clone https://github.com/lukasy09/What_Is_That.git
- # npm run install  If you're using WebStorm, the IDE should do it for you.
- # npm start Starting the developer server.
+``` bash
+git clone https://github.com/lukasy09/What_Is_That.git
+npm run install  If you're using WebStorm, the IDE should do it for you.
+npm start Starting the developer server.
 ```
 
 <h2>Links</h2>
