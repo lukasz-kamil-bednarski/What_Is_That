@@ -21,13 +21,13 @@ export default class Content extends React.Component {
 
             charData : {
                 options:{
-                legend: {
-                    labels: Converter.getPropNames(),
-                    fontColor:'#f1f1f1'
+                    legend: {
+                        labels: Converter.getPropNames(),
+                        fontColor:'#f1f1f1'
                 }},
                 datasets:[
                     {
-                        label:'Propablities',
+                        label:'Confidence',
                         data : []
                     }
                 ]
@@ -205,7 +205,6 @@ export default class Content extends React.Component {
                                     'rgba(228, 63, 82, 1)',
                                     'rgba(178, 221, 70, 1)',
                                 ],
-
                             }
                         ]
                     }
@@ -236,6 +235,9 @@ export default class Content extends React.Component {
     }
 
 
+    /**
+     * Changing stage to graph
+     */
     showGraph = ()=>{
         this.setState({
             showGraph : true

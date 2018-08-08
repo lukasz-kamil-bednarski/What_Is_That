@@ -8,7 +8,7 @@ export default class Footer extends React.Component{
         <div className={"Footer-container"} style={{width:window.innerWidth}}>
                 <div className={"Title"}>
                     <span className={"Project"}>What is that?</span>
-                    <span className={"Copyright"}><span>&copy;</span>What is that? All rights reserved. </span>
+                    <span className={"Copyright"} style={{position:'absolute',left:'0%',bottom:'-25%'}}><span>&copy;</span>What is that? All rights reserved. </span>
                 </div>
             <ul>
              <li><div className={"Info"}>
