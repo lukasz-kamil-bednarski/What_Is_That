@@ -6,8 +6,8 @@ import StyleManager from '../utils/StyleManager';
 import VideoView from './videoView/VideoView'
 import camera from '../assets/camera.png';
 import LoadingScreen from './LoadingScreen';
-import {Bar} from 'react-chartjs-2'
-
+import {Bar} from 'react-chartjs-2';
+import MnistView from './mnistView/MnistView';
 export default class Content extends React.Component {
 
     constructor(props) {
@@ -18,6 +18,8 @@ export default class Content extends React.Component {
             videoView: false,
             isModelLoaded: false,
             showGraph: false,
+            classificationModel: true,
+            mnistModel : false,
 
             charData : {
                 options:{
@@ -38,58 +40,91 @@ export default class Content extends React.Component {
 
     componentWillMount() {
         this.loadModel().then(()=> this.setState({isModelLoaded:true,result:''}));
-        console.log(Converter.getPropNames())
     }
 
     render() {
-        if(!this.state.showGraph) {
-            return (
-                this.state.videoView ?
-                    <VideoView takeSnapshot={this.takeSnapshot}/> :
-                    this.state.isModelLoaded ?
-                        <div className="Content-box"
-                             style={{width: window.innerWidth, height: window.innerHeight - 50}}>
-                            <div className={"Input-box"}
-                                 style={{width: window.innerWidth / 3, height: window.innerHeight - 50}}>
-                        <span style={StyleManager.arrowStyleHandle(this.state.loadedData)}
-                              title={"Click below!"}>&#x21CA;</span>
-                                <input accept="image/x-png,image/jpeg" id="file" className={"Image-input"}
-                                       onChange={(e) => {
-                                           this.selectFile(e)
-                                       }} type='file' title="your text"/>
-                                <label htmlFor={"file"} className={"Image-input-label"}>Choose a file</label>
-                            </div>
+        if(this.state.classificationModel) {
+            if (!this.state.showGraph) {
+                return (
+                    this.state.videoView ?
+                        <VideoView takeSnapshot={this.takeSnapshot}/> :
+                        this.state.isModelLoaded ?
+                            <div className="Content-box"
+                                 style={{width: window.innerWidth, height: window.innerHeight - 50}}>
+                                <div className={"Input-box"}
+                                     style={{width: window.innerWidth / 3, height: window.innerHeight - 50}}>
+                                    <ul>
+                                        <li>
+                                            <span>Class</span>
+                                            <label className={"switch"}>
+                                                <input type={"checkbox"} checked={this.state.classificationModel}
+                                                       onChange={() => this.handleModel(0)}/>
+                                                <span className={"slider round"}> </span>
+                                            </label>
+                                        </li>
 
-                            <div className={"Image-box"} >
-                                <ul>
-                                    <canvas ref={"canvas"} height={200} width={200}> </canvas>
-                                    <span>Prediction:{this.state.result}</span>
-                                </ul>
+                                        <li>
+                                            <label className={"switch"}>
+                                                <input type={"checkbox"} checked={this.state.mnistModel}
+                                                       onChange={() => this.handleModel(1)}/>
+                                                <span className={"slider round"}> </span>
+                                            </label>
+                                            <span>MNIST</span>
+                                        </li>
+                                    </ul>
+                                    <span style={StyleManager.arrowStyleHandle(this.state.loadedData)}
+                                          title={"Click below!"}>&#x21CA;</span>
+                                    <input accept="image/x-png,image/jpeg" id="file" className={"Image-input"}
+                                           onChange={(e) => {
+                                               this.selectFile(e)
+                                           }} type='file' title="your text"/>
+                                    <label htmlFor={"file"} className={"Image-input-label"}>Choose a file</label>
+                                </div>
 
-                                <ul style={{marginLeft:'1%'}}>
-                                    <li><button onClick={() => this.get_prediction()}>Predict</button></li>
-                                    <li><button onClick={()=>this.showGraph()}>Graph</button></li>
-                                </ul>
+                                <div className={"Image-box"}>
+                                    <ul>
+                                        <canvas ref={"canvas"} height={400} width={400}> </canvas>
+                                        <span>Prediction:{this.state.result}</span>
+                                    </ul>
 
-                            </div>
-                            <img alt={"Camera mode"} onClick={() => this.getVideoMode()} src={camera}
-                                 className={"Camera"} width={40} height={40}
-                                 title={"Camera"}/>
+                                    <ul style={{marginLeft: '1%'}}>
+                                        <li>
+                                            <button onClick={() => this.get_prediction()}>Predict</button>
+                                        </li>
+                                        <li>
+                                            <button onClick={() => this.showGraph()}>Graph</button>
+                                        </li>
+                                    </ul>
 
-                        </div> : <LoadingScreen/>
-            );
-        }else{
-                return(
-                    <div className="Content-box" style={{width: window.innerWidth, height: window.innerHeight - 50,padding:'10px',flexDirection:'column'}}>
+                                </div>
+                                <img alt={"Camera mode"} onClick={() => this.getVideoMode()} src={camera}
+                                     className={"Camera"} width={40} height={40}
+                                     title={"Camera"}/>
+
+                            </div> : <LoadingScreen/>
+                );
+            } else {
+                return (
+                    <div className="Content-box" style={{
+                        width: window.innerWidth,
+                        height: window.innerHeight - 50,
+                        padding: '10px',
+                        flexDirection: 'column'
+                    }}>
                         <div className={"Button-back"}>
-                            <button onClick={()=>this.setState({showGraph:false})}>Back</button>
+                            <button onClick={() => this.setState({showGraph: false})}>Back</button>
                         </div>
 
                         <div className={"Chart-box"}>
-                            <Bar data = {this.state.charData}/>
+                            <Bar data={this.state.charData}/>
                         </div>
                     </div>
                 )
+            }
+        }else{
+            return (
+                <MnistView/>
+            )
         }
 
     }
@@ -106,9 +141,9 @@ export default class Content extends React.Component {
             let img = new Image();
             img.onload = function () {
 
-                ctx.canvas.width = 200;
-                ctx.canvas.height = 200;
-                ctx.drawImage(img, 0, 0, 200,200);
+                ctx.canvas.width = img.naturalWidth;
+                ctx.canvas.height = img.naturalHeight;
+                ctx.drawImage(img, 0, 0, img.naturalWidth,img.naturalHeight);
             };
             img.src = event.target.result;
         };
@@ -138,18 +173,19 @@ export default class Content extends React.Component {
             await tf.tidy(()=> {
                 let canvas = this.refs.canvas;
                 let ctx = canvas.getContext("2d");
-                let imageData = ctx.getImageData(0, 0, 200, 200);
+                let imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
 
                 let pixels = tf.fromPixels(imageData, 3);
 
-                let batched = pixels.expandDims(0);
+                let resized= tf.image.resizeBilinear(pixels,[200,200]);
+
+                let batched = resized.expandDims(0);
                 batched = batched.toFloat().div(tf.scalar(255));
 
                 const output = this.model.predict(batched);
                 let data = Array.from(output.dataSync());
 
                 let results = Converter.convertToArray(data);
-                console.log(results);
                 let str = Converter.mapToStr(results);
 
                 this.setState({
@@ -228,7 +264,7 @@ export default class Content extends React.Component {
 
     async drawImage(video) {
         let context = this.refs.canvas.getContext("2d");
-        await context.drawImage(video, 0, 0, 200, 200);
+        await context.drawImage(video, 0, 0, 400, 400);
         this.setState({
             loadedData: true
         });
@@ -242,5 +278,36 @@ export default class Content extends React.Component {
         this.setState({
             showGraph : true
         })
+    };
+
+
+    /**
+     *
+     */
+    handleModel = (modelIndex)=>{
+       switch (modelIndex){
+           case 0:
+               if(!this.state.classificationModel){
+                   this.setState({
+                       classificationModel : true,
+                       mnistModel : false
+                   });
+               }
+               break;
+
+           case 1:
+               if(!this.state.mnistModel){
+                   this.setState({
+                       mnistModel : true,
+                       classificationModel : false
+                   });
+               }
+
+               break;
+
+           default:
+               console.log("Error in code")
+       }
     }
+
 }
