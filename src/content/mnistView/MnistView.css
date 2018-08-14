@@ -48,11 +48,32 @@
     border: solid 2px green;
 }
 
+.Parameter-list{
+
+}
+
+.Drawing-board-container label{
+    color: #f1f1f1;
+    font-weight: bold;
+}
+.Drawing-board-container input,select{
+    width: 50px;
+    color: #f1f1f1;
+    background-color: #222222;
+    border-radius: 3px;
+    border: solid 2px #f1f1f1;
+    font-size: 12pt;
+    margin-left: 4px;
+}
+
+
+
 .Drawing-board-container canvas{
     border: dashed 4px #f1f1f1;
     cursor: crosshair;
     background-color: #222222;
 }
+
 
 .Prediction-container{
     display: flex;

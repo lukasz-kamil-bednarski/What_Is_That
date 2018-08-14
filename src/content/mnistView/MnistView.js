@@ -4,6 +4,7 @@ import * as tfjs from '@tensorflow/tfjs';
 //import LoadingScreen from '../LoadingScreen';
 import {Pie} from 'react-chartjs-2';
 import Converter from '../../utils/Converter';
+import StyleManager from "../../utils/StyleManager";
 
 export default class MnistView extends  React.Component{
     constructor(){
@@ -36,7 +37,8 @@ export default class MnistView extends  React.Component{
         }};
 
     componentWillMount(){
-       this.loadModel().then(()=>this.setState({loadedData :true}));
+        this.thickness = 1;
+        this.loadModel().then(()=>this.setState({loadedData :true}));
 
     }
 
@@ -64,7 +66,28 @@ export default class MnistView extends  React.Component{
                                 </div>
                             </li>
                         </ul>
-                        <canvas ref={"canvas"} width={600} height={600}> </canvas>
+
+                        <ul className={"Parameter-list"}>
+                            <li>
+                                <div>
+                                    <label>
+                                        Thickness
+                                        <input type={"number"} min={0} defaultValue={1} onChange={(input) => this.thickness = input.target.value}/>
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <label>
+                                        Color
+                                    </label>
+                                    <select defaultValue={"#f1f1f1"} style={{width:'90px'}}>
+                                        {StyleManager.renderColors()}
+                                    </select>
+                                </div>
+                            </li>
+                        </ul>
+                        <canvas ref={"canvas"} width={550} height={550}> </canvas>
                         </div>
                         <div className={"Prediction-container"} style={{height: window.innerHeight - 50}}>
                             <Pie data = {this.state.charData} />
@@ -77,6 +100,7 @@ export default class MnistView extends  React.Component{
     componentDidMount(){
          let canvas = this.refs.canvas;
          let color = '';
+         let thickness = 1;
          canvas.addEventListener("mousedown", (event) => {
              let pos = this.getMousePos(canvas, event);
              this.setState({
@@ -88,6 +112,7 @@ export default class MnistView extends  React.Component{
 
 
          canvas.addEventListener("mousemove", (event) => {
+             thickness = this.thickness;
              if (this.state.isDrawing) {
                  let pos = this.getMousePos(canvas, event);
                  this.setState({
@@ -96,10 +121,11 @@ export default class MnistView extends  React.Component{
                  });
                  if(this.state.rubberMode) {
                       color = "#222222";
-                     this.draw(color);
+                     this.draw(color, thickness);
                  }else{
                      color = "#f1f1f1";
-                     this.draw(color);
+
+                     this.draw(color, thickness);
                  }
 
              }
@@ -193,12 +219,13 @@ export default class MnistView extends  React.Component{
      * Drawing a line
      */
 
-    draw = (color) =>{
+    draw = (color, thickness) =>{
         let canvas = this.refs.canvas;
         let ctx = canvas.getContext("2d");
-
         ctx.save();
-        ctx.lineWidth = 30;
+
+        ctx.lineWidth = 30 * thickness;
+
         ctx.lineCap = 'round';
         ctx.strokeStyle = color;
 
