@@ -32,7 +32,8 @@ export default class MnistView extends  React.Component{
                             'rgba(100, 255, 100, 0.3)',
                             'rgba(0, 0, 255, 0.3)',
                             'rgba(228, 63, 82, 1)',
-                            'rgba(50, 221, 170, 1)']
+                            'rgba(50, 221, 170, 1)'],
+
                     }]}
         }};
 
@@ -47,6 +48,10 @@ export default class MnistView extends  React.Component{
     render(){
         return (
                 <div className={"Mnist-container"} style={{height:window.innerHeight - 50}}>
+                    <div onClick={() => this.props.getBack()} className={"Simple-button"} style={{position:'absolute',top:'1%',left:'15%',fontSize:'8pt',minWidth:'30px'}}>
+                        Back
+                    </div>
+
                     <div className={"Drawing-board-container"}>
                         <ul>
                             <li>
@@ -65,6 +70,14 @@ export default class MnistView extends  React.Component{
                                 style={this.state.rubberMode ? {border:'solid 3px #7FFF00'} : {} }>
                                     Rubber
                                 </div>
+                            </li>
+
+                            <li>
+                                <a href={"#"} ref={"download"} download={"image.png"}>
+                                    <div className={"Simple-button"} onClick={() => this.downloadImg()}>
+                                        Download
+                                    </div>
+                                </a>
                             </li>
                         </ul>
 
@@ -182,10 +195,11 @@ export default class MnistView extends  React.Component{
                 result : Converter.findMaxProp(this.preds),
                 charData: {
                     labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                    fontColor : 'white',
                     datasets: [
                         {
                             label: "Digit confidence",
-                            data: this.preds
+                            data: this.preds,
                         }]}});
         }
     };
@@ -272,6 +286,18 @@ export default class MnistView extends  React.Component{
                     }]}
         });
     };
+    /**
+     * Lets user to download a canvas as a .PNG file.
+     */
+    downloadImg = () =>{
+        console.log("XD1222")
+        let download = this.refs.download;
+        let canvas = this.refs.canvas;
+        let dataUrl = canvas.toDataURL('image/png');
 
+        download.href = dataUrl;
+
+
+    }
 
 }

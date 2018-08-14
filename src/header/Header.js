@@ -8,7 +8,7 @@ export default class Header extends React.Component{
                 <ul>
                     <li style={{margin:'0 5px'}}><img alt={"ML-logo"} className={"Brain"} width={50} height={50} src={logo} title={"What is That?"}/></li>
                     <li>
-                        <p>What is that?</p>
+                        <p>What is that? 2 Models of Kings  </p>
                     </li>
 
                 </ul>

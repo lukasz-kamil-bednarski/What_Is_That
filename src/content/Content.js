@@ -124,7 +124,7 @@ export default class Content extends React.Component {
             }
         }else{
             return (
-                <MnistView/>
+                <MnistView getBack = {this.getBack}/>
             )
         }
 
@@ -309,6 +309,13 @@ export default class Content extends React.Component {
            default:
                console.log("Error in code")
        }
-    }
+    };
+
+    getBack = ()=> {
+        this.setState({
+            classificationModel : true,
+            mnistModel : false
+        })
+}
 
 }
