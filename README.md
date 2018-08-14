@@ -19,11 +19,14 @@
 <img src="video/objects_graph.gif">
 </p>
 
-<p>You can take your own photo and predict</p>
+<h1>MNIST Database</h1>
 
-<p align="center"> 
-<img src="video/camera.gif">
+<p>In the second big update of the project a new feature&model has been added.</p>
+<p>The feature allows you to draw a number in range [0-9] and the machine predicts what it may be.All other links are below.</p>
+<p align = "center">
+	<img src="video/digits.gif" />
 </p>
+
 
 <p>You can install the project on your own computer</p>
 
@@ -35,9 +38,9 @@ npm start Starting the developer server.
 <h2>Links</h2>
 <p>Resources that I have used to learn about ML and create the projects and other links</p>
 
-
 <a href="https://www.udemy.com/machinelearning/">Udemy course</a> <br/>
 <a href="https://github.com/lukasy09/IchLerneCNN.py">My repository storing the kernel & the model in json</a><br/>
+<a href="https://www.kaggle.com/c/digit-recognizer>MNIST Database</a><br/>
 <a href="https://www.youtube.com/watch?v=RznKVRTFkBY&list=PLZbbT5o_s2xrwRnXk_yCPtnqqo4_u2YGL">Keras tutorial playlist</a><br/>
 <a href="https://js.tensorflow.org/tutorials/">TensorFlowjs docs</a><br/>
 <a href="https://github.com/SkalskiP/ILearnMachineLearning.js">Piotr Skalski's repository with similar projects</a><br/>

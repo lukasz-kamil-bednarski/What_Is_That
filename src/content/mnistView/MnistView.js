@@ -48,7 +48,7 @@ export default class MnistView extends  React.Component{
     render(){
         return (
                 <div className={"Mnist-container"} style={{height:window.innerHeight - 50}}>
-                    <div onClick={() => this.props.getBack()} className={"Simple-button"} style={{position:'absolute',top:'1%',left:'15%',fontSize:'8pt',minWidth:'30px'}}>
+                    <div onClick={() => this.props.getBack()} className={"Simple-button"} style={{position:'absolute',top:'1%',left:'25%',fontSize:'8pt',minWidth:'30px'}}>
                         Back
                     </div>
 
@@ -73,7 +73,7 @@ export default class MnistView extends  React.Component{
                             </li>
 
                             <li>
-                                <a href={"#"} ref={"download"} download={"image.png"}>
+                                <a  ref={"download"} download={"image.png"}>
                                     <div className={"Simple-button"} onClick={() => this.downloadImg()}>
                                         Download
                                     </div>
@@ -290,14 +290,9 @@ export default class MnistView extends  React.Component{
      * Lets user to download a canvas as a .PNG file.
      */
     downloadImg = () =>{
-        console.log("XD1222")
         let download = this.refs.download;
         let canvas = this.refs.canvas;
-        let dataUrl = canvas.toDataURL('image/png');
-
-        download.href = dataUrl;
-
-
-    }
+        download.href = canvas.toDataURL('image/png');
+    };
 
 }
