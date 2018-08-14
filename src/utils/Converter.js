@@ -165,6 +165,10 @@ export default class Converter {
           list.push(prop)
       }
       return list;
+  };
+  static findMaxProp(array){
+      let max = Math.max(...array);
+      return array.indexOf(max);
   }
 
 

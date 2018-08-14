@@ -119,18 +119,21 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     color: #f1f1f1;
+    margin: 0;
 
 }
-.Input-box > ul      li {
+.Input-box > ul li {
     display: flex;
     align-items: center;
     margin-right: 2%;
     margin-left: 2%;
+    padding: 0;
 }
 .Input-box > ul > li span{
-    font-size: 10pt;
+    font-size: 16pt;
     margin-right: 5%;
     margin-left: 5%;
+    padding: 0;
 }
 
 /*Image container box styles*/

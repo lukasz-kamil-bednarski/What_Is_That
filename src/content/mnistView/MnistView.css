@@ -1,3 +1,72 @@
+
+
 .Mnist-container{
-    
+    width: 100vw;
+    background-color:#333333;
+    display: flex;
+    flex-direction: row;
+}
+/* Board styles*/
+.Drawing-board-container{
+    display: flex;
+    flex: 1;
+    border-right: solid 2px #f1f1f1;
+    background-color: #333333;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.Drawing-board-container ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.Drawing-board-container li {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 30px;
+}
+.Simple-button{
+    background-color: #222222;
+    color: #f1f1f1;
+    font-weight: bolder;
+    padding: 15px;
+    font-size: 16pt;
+    border-radius: 34px;
+    text-align: center;
+    min-width: 100px;
+    cursor: pointer;
+}
+.Simple-button:hover{
+    background-color: #f1f1f1;
+    color: black;
+}
+
+.Drawing-board-container canvas{
+    border: dashed 4px #f1f1f1;
+    cursor: crosshair;
+    background-color: #222222;
+}
+
+.Prediction-container{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0;
+    flex-direction: column;
+
+}
+.Prediction-container div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.Prediction-container h1 {
+    color: #f1f1f1;
+    font-weight: bolder;
 }

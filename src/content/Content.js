@@ -8,6 +8,7 @@ import camera from '../assets/camera.png';
 import LoadingScreen from './LoadingScreen';
 import {Bar} from 'react-chartjs-2';
 import MnistView from './mnistView/MnistView';
+
 export default class Content extends React.Component {
 
     constructor(props) {
@@ -39,7 +40,7 @@ export default class Content extends React.Component {
     }
 
     componentWillMount() {
-        this.loadModel().then(()=> this.setState({isModelLoaded:true,result:''}));
+        this.loadModel().then(()=> this.setState({isModelLoaded:true}));
     }
 
     render() {
@@ -282,7 +283,7 @@ export default class Content extends React.Component {
 
 
     /**
-     *
+     * Allows to switch models
      */
     handleModel = (modelIndex)=>{
        switch (modelIndex){
