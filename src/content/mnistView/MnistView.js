@@ -10,6 +10,7 @@ export default class MnistView extends  React.Component{
         super();
         this.state = {
             result : '',
+            rubberMode: false,
             isDrawing : false, // isDrawing == mouseDown
             prevPosition : null,
             currentPosition : null,
@@ -18,6 +19,7 @@ export default class MnistView extends  React.Component{
                 labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                 datasets:[
                     {
+                        data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                         label: "Digit confidence",
                         backgroundColor:[
                             'rgba(255, 0, 0, 0.3)',
@@ -54,20 +56,27 @@ export default class MnistView extends  React.Component{
                                     Clean
                                 </div>
                             </li>
+
+                            <li>
+                                <div className={"Simple-button"} onClick={() => {this.setState({rubberMode : !this.state.rubberMode})}}
+                                style={this.state.rubberMode ? {border:'solid 3px #7FFF00'} : {} }>
+                                    Rubber
+                                </div>
+                            </li>
                         </ul>
                         <canvas ref={"canvas"} width={600} height={600}> </canvas>
                         </div>
                         <div className={"Prediction-container"} style={{height: window.innerHeight - 50}}>
                             <Pie data = {this.state.charData} />
                             <div>
-                                <h1>Prediction {this.state.result}</h1>
+                                <h1>Prediction: {this.state.result}</h1>
                             </div>
                         </div>
                 </div>)}
 
     componentDidMount(){
          let canvas = this.refs.canvas;
-
+         let color = '';
          canvas.addEventListener("mousedown", (event) => {
              let pos = this.getMousePos(canvas, event);
              this.setState({
@@ -85,7 +94,13 @@ export default class MnistView extends  React.Component{
                      prevPosition: this.state.currentPosition,
                      currentPosition: pos
                  });
-                 this.draw()
+                 if(this.state.rubberMode) {
+                      color = "#222222";
+                     this.draw(color);
+                 }else{
+                     color = "#f1f1f1";
+                     this.draw(color);
+                 }
 
              }
          });
@@ -97,7 +112,7 @@ export default class MnistView extends  React.Component{
              });
          });
 
-        canvas.addEventListener(("onmouseout"), () =>{
+        canvas.addEventListener(("mouseout"), () =>{
             this.setState({
                 isDrawing: false
             })
@@ -143,9 +158,7 @@ export default class MnistView extends  React.Component{
                         {
                             label: "Digit confidence",
                             data: this.preds
-                        }]
-                }
-            });
+                        }]}});
         }
     };
 
@@ -180,14 +193,14 @@ export default class MnistView extends  React.Component{
      * Drawing a line
      */
 
-    draw = () =>{
+    draw = (color) =>{
         let canvas = this.refs.canvas;
         let ctx = canvas.getContext("2d");
 
         ctx.save();
         ctx.lineWidth = 30;
         ctx.lineCap = 'round';
-        ctx.strokeStyle = "white";
+        ctx.strokeStyle = color;
 
         ctx.beginPath();
         ctx.moveTo(this.state.prevPosition.x, this.state.prevPosition.y);
@@ -198,13 +211,37 @@ export default class MnistView extends  React.Component{
     };
 
 
+
+
     /**
      * Restarting canvas to initials.
      */
     cleanCanvas = () =>{
         let canvas = this.refs.canvas;
         let ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+        this.setState({
+            result: '',
+            charData: {
+                labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                datasets:[
+                    {
+                        data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                        label: "Digit confidence",
+                        backgroundColor:[
+                            'rgba(255, 0, 0, 0.3)',
+                            'rgba(0, 255, 0, 0.7)',
+                            'rgba(150, 50, 255, 0.3)',
+                            'rgba(228, 90, 182, 1)',
+                            'rgba(178, 221, 70, 1)',
+                            'rgba(255, 150, 0, 0.3)',
+                            'rgba(100, 255, 100, 0.3)',
+                            'rgba(0, 0, 255, 0.3)',
+                            'rgba(228, 63, 82, 1)',
+                            'rgba(50, 221, 170, 1)']
+                    }]}
+        });
     };
 
 

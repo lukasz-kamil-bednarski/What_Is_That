@@ -38,10 +38,14 @@
     text-align: center;
     min-width: 100px;
     cursor: pointer;
+    border: solid 3px #222222;
 }
 .Simple-button:hover{
     background-color: #f1f1f1;
     color: black;
+}
+.Rubber:after{
+    border: solid 2px green;
 }
 
 .Drawing-board-container canvas{
