@@ -25,7 +25,7 @@ export default class StyleManager {
         return colorHexList.map((singleColor) =>{
             counter++;
             return(
-                <option style={{minWidth:'2px',minHeight:"2px",color:'black',fontWeight:'bold',backgroundColor:singleColor}}>
+                <option key={counter} style={{minWidth:'2px',minHeight:"2px",color:'black',fontWeight:'bold',backgroundColor:singleColor}}>
                     {singleColor}
                 </option>
             )

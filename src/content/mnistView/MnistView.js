@@ -38,6 +38,7 @@ export default class MnistView extends  React.Component{
 
     componentWillMount(){
         this.thickness = 1;
+        this.color = "#f1f1f1";
         this.loadModel().then(()=>this.setState({loadedData :true}));
 
     }
@@ -81,7 +82,8 @@ export default class MnistView extends  React.Component{
                                     <label>
                                         Color
                                     </label>
-                                    <select defaultValue={"#f1f1f1"} style={{width:'90px'}}>
+                                    <select defaultValue={"#f1f1f1"} style={{width:'90px'}}
+                                            onChange={(input) => {this.color = input.target.value;}}>
                                         {StyleManager.renderColors()}
                                     </select>
                                 </div>
@@ -99,7 +101,7 @@ export default class MnistView extends  React.Component{
 
     componentDidMount(){
          let canvas = this.refs.canvas;
-         let color = '';
+         let color = '#f1f1f1';
          let thickness = 1;
          canvas.addEventListener("mousedown", (event) => {
              let pos = this.getMousePos(canvas, event);
@@ -123,7 +125,7 @@ export default class MnistView extends  React.Component{
                       color = "#222222";
                      this.draw(color, thickness);
                  }else{
-                     color = "#f1f1f1";
+                     color = this.color;
 
                      this.draw(color, thickness);
                  }
