@@ -23,6 +23,7 @@
 
 <p>In the second big update of the project a new feature&model has been added.</p>
 <p>The feature allows you to draw a number in range [0-9] and the machine predicts what it may be.All other links are below.</p>
+
 <p align = "center">
 	<img src="video/digits.gif" />
 </p>
