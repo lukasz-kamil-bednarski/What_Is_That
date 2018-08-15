@@ -1,17 +1,29 @@
 import React from 'react';
 import "./MnistView.css";
 import * as tfjs from '@tensorflow/tfjs';
-//import LoadingScreen from '../LoadingScreen';
 import {Pie} from 'react-chartjs-2';
 import Converter from '../../utils/Converter';
 import StyleManager from "../../utils/StyleManager";
+import "../Content.css";
 
 export default class MnistView extends  React.Component{
     constructor(){
         super();
+        this.colorList = [
+            'rgba(255, 0, 0, 0.3)',
+            'rgba(0, 255, 0, 0.7)',
+            'rgba(150, 50, 255, 0.3)',
+            'rgba(228, 90, 182, 1)',
+            'rgba(178, 221, 70, 1)',
+            'rgba(255, 150, 0, 0.3)',
+            'rgba(100, 255, 100, 0.3)',
+            'rgba(0, 0, 255, 0.3)',
+            'rgba(228, 63, 82, 1)',
+            'rgba(50, 221, 170, 1)'];
         this.state = {
             result : '',
             rubberMode: false,
+            realTimePredicting: false,
             isDrawing : false, // isDrawing == mouseDown
             prevPosition : null,
             currentPosition : null,
@@ -22,20 +34,10 @@ export default class MnistView extends  React.Component{
                     {
                         data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                         label: "Digit confidence",
-                        backgroundColor:[
-                            'rgba(255, 0, 0, 0.3)',
-                            'rgba(0, 255, 0, 0.7)',
-                            'rgba(150, 50, 255, 0.3)',
-                            'rgba(228, 90, 182, 1)',
-                            'rgba(178, 221, 70, 1)',
-                            'rgba(255, 150, 0, 0.3)',
-                            'rgba(100, 255, 100, 0.3)',
-                            'rgba(0, 0, 255, 0.3)',
-                            'rgba(228, 63, 82, 1)',
-                            'rgba(50, 221, 170, 1)'],
+                        backgroundColor: this.colorList,
 
-                    }]}
-        }};
+                    }]}};
+    };
 
     componentWillMount(){
         this.thickness = 1;
@@ -92,17 +94,25 @@ export default class MnistView extends  React.Component{
                             </li>
                             <li>
                                 <div>
-                                    <label>
-                                        Color
-                                    </label>
+                                    <label>Color</label>
                                     <select defaultValue={"#f1f1f1"} style={{width:'90px'}}
                                             onChange={(input) => {this.color = input.target.value;}}>
                                         {StyleManager.renderColors()}
                                     </select>
                                 </div>
                             </li>
+                            <li>
+                                <div style={{display:'flex',alignItems:'center',justifyContent:"center"}}>
+                                    <label className={"switch"}>
+                                        <input type={"checkbox"} checked={this.state.realTimePredicting}
+                                               onChange={() => {this.setState({realTimePredicting: !this.state.realTimePredicting})}}/>
+                                        <span className={"slider round"}> </span>
+                                    </label>
+                                    <label>Real-Time predict</label>
+                                </div>
+                            </li>
                         </ul>
-                        <canvas ref={"canvas"} width={550} height={550}> </canvas>
+                        <canvas ref={"canvas"} width={500} height={500}> </canvas>
                         </div>
                         <div className={"Prediction-container"} style={{height: window.innerHeight - 50}}>
                             <Pie data = {this.state.charData} />
@@ -114,8 +124,11 @@ export default class MnistView extends  React.Component{
 
     componentDidMount(){
          let canvas = this.refs.canvas;
-         let color = '#f1f1f1';
-         let thickness = 1;
+         let ctx = canvas.getContext("2d");
+         ctx.rect(0, 0, 500, 500);
+         ctx.fillStyle = "black";
+         ctx.fill();
+
          canvas.addEventListener("mousedown", (event) => {
              let pos = this.getMousePos(canvas, event);
              this.setState({
@@ -127,7 +140,6 @@ export default class MnistView extends  React.Component{
 
 
          canvas.addEventListener("mousemove", (event) => {
-             thickness = this.thickness;
              if (this.state.isDrawing) {
                  let pos = this.getMousePos(canvas, event);
                  this.setState({
@@ -135,16 +147,16 @@ export default class MnistView extends  React.Component{
                      currentPosition: pos
                  });
                  if(this.state.rubberMode) {
-                      color = "#222222";
-                     this.draw(color, thickness);
+                     this.color = "black";
+                     this.draw(this.color, this.thickness);
                  }else{
-                     color = this.color;
+                     this.draw(this.color, this.thickness);
 
-                     this.draw(color, thickness);
                  }
-
-             }
-         });
+                 if(this.state.realTimePredicting){
+                     this.getPrediction().then();
+                 }
+                 }});
 
 
         canvas.addEventListener("mouseup", () => {
@@ -156,9 +168,9 @@ export default class MnistView extends  React.Component{
         canvas.addEventListener(("mouseout"), () =>{
             this.setState({
                 isDrawing: false
-            })
-        })
-     };
+            });
+        });
+    };
 
     /**
      * Loading a model
@@ -195,7 +207,6 @@ export default class MnistView extends  React.Component{
                 result : Converter.findMaxProp(this.preds),
                 charData: {
                     labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    fontColor : 'white',
                     datasets: [
                         {
                             label: "Digit confidence",
@@ -204,7 +215,11 @@ export default class MnistView extends  React.Component{
         }
     };
 
-
+    /**
+     * Scaling data from canvas.
+     * @param canvas
+     * @returns {ImageData}
+     */
     getScaledData = (canvas) =>{
         let scaledCanvas = document.createElement("canvas");
         let scaledCtx = scaledCanvas.getContext("2d");
@@ -263,7 +278,8 @@ export default class MnistView extends  React.Component{
         let canvas = this.refs.canvas;
         let ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
+        ctx.fillStyle = "black";
+        ctx.fill();
         this.setState({
             result: '',
             charData: {
@@ -272,20 +288,13 @@ export default class MnistView extends  React.Component{
                     {
                         data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                         label: "Digit confidence",
-                        backgroundColor:[
-                            'rgba(255, 0, 0, 0.3)',
-                            'rgba(0, 255, 0, 0.7)',
-                            'rgba(150, 50, 255, 0.3)',
-                            'rgba(228, 90, 182, 1)',
-                            'rgba(178, 221, 70, 1)',
-                            'rgba(255, 150, 0, 0.3)',
-                            'rgba(100, 255, 100, 0.3)',
-                            'rgba(0, 0, 255, 0.3)',
-                            'rgba(228, 63, 82, 1)',
-                            'rgba(50, 221, 170, 1)']
+                        backgroundColor: this.colorList
                     }]}
         });
     };
+
+
+
     /**
      * Lets user to download a canvas as a .PNG file.
      */

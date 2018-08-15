@@ -30,6 +30,23 @@ export default class StyleManager {
                 </option>
             )
         })
+    };
+
+    static generateRandColors = (number) =>{
+        let colorList = [];
+
+        for(let i = 0 ; i<number ; i++){
+           let colorObject = {
+               red : Math.floor(Math.random() * 255),
+               green : Math.floor(Math.random() * 255 ),
+               blue : Math.floor(Math.random() * 255 ),
+               alpha : Math.random()
+           };
+           let str = `rgba(${colorObject['red']},${colorObject['green']}, ${colorObject['blue']},${colorObject['alpha']})`;
+           colorList.push(str);
+        }
+
+        return colorList;
     }
 
 
