@@ -93,14 +93,14 @@ export default class MnistView extends  React.Component{
                                     <li><input min={0} max={255} defaultValue={241} ref={"R"}  type={"number"} onChange={(input)=>{this.colorFontObject['red'] = input.target.value;}}/></li>
                                     <li><input min={0} max={255} defaultValue={241} ref={"G"}  type={"number"} onChange={(input)=>{this.colorFontObject['green'] = input.target.value}}/></li>
                                     <li><input min={0} max={255} defaultValue={241} ref={"B"}  type={"number"} onChange={(input)=>{this.colorFontObject['blue'] = input.target.value}}/></li>
-                                    <li><canvas  width={25} height={25} ref={(canvas) => this.showCanvas = canvas}> </canvas></li>
+                                    <li><canvas style={{backgroundColor:'#f1f1f1'}} width={25} height={25} ref={(canvas) => this.showCanvas = canvas}> </canvas></li>
                                 </ul>
                             </li>
                             <li>
                                 <div style={{display:'flex',alignItems:'center',justifyContent:"center"}}>
                                     <label className={"switch"}>
                                         <input type={"checkbox"} checked={this.state.realTimePredicting}
-                                               onChange={() => {this.setState({realTimePredicting: !this.state.realTimePredicting})}}/>
+                                               onChange={() => {this.setState({realTimePredicting: !this.state.realTimePredicting}) }}/>
                                         <span className={"slider round"}> </span>
                                     </label>
                                     <label>Real-Time predict</label>

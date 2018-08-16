@@ -6,10 +6,10 @@ export default class Footer extends React.Component{
     render(){
         return(
         <div className={"Footer-container"} style={{width:window.innerWidth}}>
-                <div className={"Title"}>
-                    <span className={"Project"}>What is that? 2 Models of Kings</span>
-                    <span className={"Copyright"} style={{position:'absolute',left:'0%',bottom:'-25%'}}><span>&copy;</span>What is that? All rights reserved. </span>
-                </div>
+            <ul className={"Project-name-list"}>
+                <li><span className={"Project"}>What is that? 2 Models of Kings</span></li>
+                <li><span className={"Copyright"}><span>&copy;</span>What is that? All rights reserved.</span></li>
+            </ul>
             <ul>
              <li><div className={"Info"}>
                     <h2>About</h2>
@@ -38,6 +38,7 @@ export default class Footer extends React.Component{
                         <li><a target={"_blank"} href={"https://www.youtube.com/watch?v=FmpDIaiMIeA"}>Video on CNN&ML</a></li>
                         <li><a target={"_blank"} href={"https://github.com/SkalskiP/ILearnMachineLearning.js"}>SkalskiP's repository</a></li>
                         <li><a target={"_blank"} href={"https://github.com/lukasy09/IchLerneCNN.py/blob/master/Objects/src/models/model_3.json/model.json"}>Hosted model</a></li>
+                        <li><a target={"_blank"} href={"https://github.com/lukasy09/IchLerneCNN.py/blob/master/MNIST/model/model.json"}>Hosted model 2 (MNIST)</a></li>
                         <li><a target={"_blank"} href={"https://github.com/lukasy09/IchLerneCNN.py/blob/master/Objects/src/objects_classification.ipynb"}>Kernel (class model)</a></li>
                         <li><a target={"_blank"} href={"https://github.com/lukasy09/IchLerneCNN.py/blob/master/MNIST/src/digits.ipynb"}>Kernel (Digit recognition model)</a></li>
                     </ol>
