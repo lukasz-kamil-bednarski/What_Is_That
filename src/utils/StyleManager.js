@@ -19,6 +19,28 @@ export default class StyleManager {
 
     };
 
+    /**
+     * Scaling data from canvas.
+     * @param canvas
+     * @returns {ImageData}
+     */
+    static getScaledData = (canvas) =>{
+        let scaledCanvas = document.createElement("canvas");
+        let scaledCtx = scaledCanvas.getContext("2d");
+
+        scaledCtx.width = 28;
+        scaledCtx.height = 28;
+
+        scaledCtx.drawImage(canvas, 0, 0, 28, 28);
+        return scaledCtx.getImageData(0, 0, 28, 28);
+    };
+
+
+
+    /**
+     *
+     * @returns {any[]}
+     */
     static renderColors = () =>{
         let counter = -1;
         const colorHexList = ["#A52A2A","#8B0000","#F08080","#000080", "#f1f1f1"];
@@ -31,6 +53,12 @@ export default class StyleManager {
             )
         })
     };
+
+    /**
+     * @Deprecated
+     * @param number
+     * @returns {Array}
+     */
 
     static generateRandColors = (number) =>{
         let colorList = [];
@@ -47,8 +75,27 @@ export default class StyleManager {
         }
 
         return colorList;
-    }
+    };
 
+
+    /**
+     * @param colorObject
+     * @returns {string}
+     */
+    static getDrawColor = (colorObject) => {
+      return `rgb(${colorObject['red']},${colorObject['green']},${colorObject['blue']})`;
+    };
+    /**
+     * Coloring showCanvas while changing fontColor
+     * @param canvas
+     * @param colorObject
+     */
+   static colorCanvas = (canvas, colorObject) =>{
+       let ctx = canvas.getContext("2d");
+       ctx.fillStyle = StyleManager.getDrawColor(colorObject);
+       ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);
+       ctx.fill();
+   }
 
 
 }

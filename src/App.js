@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Header from "./header/Header"
 import Content from './content/Content';
-import Footer from './footer/Footer'
+import Footer from './footer/Footer';
+import './App.css';
 export default class App extends Component {
   constructor(props){
       super(props);
@@ -14,7 +15,7 @@ export default class App extends Component {
 
   render() {
     return (
-            <div className={"Root-container"} style={{width:this.windowWidth, height:this.windowHeight,padding:'0',margin:'0'}}>
+            <div style={{width:this.windowWidth, height:this.windowHeight,padding:'0',margin:'0'}}>
                 <Header/>
                 <Content/>
                 <Footer/>

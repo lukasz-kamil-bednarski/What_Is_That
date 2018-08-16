@@ -4,6 +4,7 @@ import * as tfjs from '@tensorflow/tfjs';
 import {Pie} from 'react-chartjs-2';
 import Converter from '../../utils/Converter';
 import StyleManager from "../../utils/StyleManager";
+import DataProvider from '../../utils/DataProvider';
 import "../Content.css";
 
 export default class MnistView extends  React.Component{
@@ -20,6 +21,12 @@ export default class MnistView extends  React.Component{
             'rgba(0, 0, 255, 0.3)',
             'rgba(228, 63, 82, 1)',
             'rgba(50, 221, 170, 1)'];
+
+        this.colorFontObject = {
+          red : 241,
+          blue : 241,
+          green:241
+        };
         this.state = {
             result : '',
             rubberMode: false,
@@ -35,7 +42,6 @@ export default class MnistView extends  React.Component{
                         data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                         label: "Digit confidence",
                         backgroundColor: this.colorList,
-
                     }]}};
     };
 
@@ -50,40 +56,29 @@ export default class MnistView extends  React.Component{
     render(){
         return (
                 <div className={"Mnist-container"} style={{height:window.innerHeight - 50}}>
-                    <div onClick={() => this.props.getBack()} className={"Simple-button"} style={{position:'absolute',top:'1%',left:'25%',fontSize:'8pt',minWidth:'30px'}}>
-                        Back
-                    </div>
 
                     <div className={"Drawing-board-container"}>
                         <ul>
                             <li>
-                                <div className={"Simple-button"} onClick={() => this.getPrediction()}>
-                                    Predict
-                                </div>
+                                <div onClick={() => this.props.getBack()} className={"Simple-button"}>Back</div>
                             </li>
                             <li>
-                                <div className={"Simple-button"} onClick={()=> this.cleanCanvas()}>
-                                    Clean
-                                </div>
+                                <div className={"Simple-button"} onClick={()=> this.cleanCanvas()}>Clean</div>
                             </li>
-
+                            <li>
+                                <div className={"Simple-button"} style={{border:'solid 2px #f1f1f1'}} onClick={() => this.getPrediction()}>Predict</div>
+                            </li>
                             <li>
                                 <div className={"Simple-button"} onClick={() => {this.setState({rubberMode : !this.state.rubberMode})}}
-                                style={this.state.rubberMode ? {border:'solid 3px #7FFF00'} : {} }>
-                                    Rubber
-                                </div>
+                                style={this.state.rubberMode ? {border:'solid 3px #7FFF00'} : {} }>Rubber</div>
                             </li>
-
                             <li>
-                                <a  ref={"download"} download={"image.png"}>
+                                <a ref={"download"} download={"image.png"}>
                                     <div className={"Simple-button"} onClick={() => this.downloadImg()}>
                                         Download
-                                    </div>
-                                </a>
-                            </li>
+                                    </div></a></li>
                         </ul>
-
-                        <ul className={"Parameter-list"}>
+                        <ul>
                             <li>
                                 <div>
                                     <label>
@@ -93,13 +88,13 @@ export default class MnistView extends  React.Component{
                                 </div>
                             </li>
                             <li>
-                                <div>
-                                    <label>Color</label>
-                                    <select defaultValue={"#f1f1f1"} style={{width:'90px'}}
-                                            onChange={(input) => {this.color = input.target.value;}}>
-                                        {StyleManager.renderColors()}
-                                    </select>
-                                </div>
+                                <ul className={"Color-choose-list"} onChange={() => {StyleManager.colorCanvas(this.showCanvas, this.colorFontObject  )}}>
+                                    <li><label>RGB</label></li>
+                                    <li><input min={0} max={255} defaultValue={241} ref={"R"}  type={"number"} onChange={(input)=>{this.colorFontObject['red'] = input.target.value;}}/></li>
+                                    <li><input min={0} max={255} defaultValue={241} ref={"G"}  type={"number"} onChange={(input)=>{this.colorFontObject['green'] = input.target.value}}/></li>
+                                    <li><input min={0} max={255} defaultValue={241} ref={"B"}  type={"number"} onChange={(input)=>{this.colorFontObject['blue'] = input.target.value}}/></li>
+                                    <li><canvas  width={25} height={25} ref={(canvas) => this.showCanvas = canvas}> </canvas></li>
+                                </ul>
                             </li>
                             <li>
                                 <div style={{display:'flex',alignItems:'center',justifyContent:"center"}}>
@@ -130,7 +125,7 @@ export default class MnistView extends  React.Component{
          ctx.fill();
 
          canvas.addEventListener("mousedown", (event) => {
-             let pos = this.getMousePos(canvas, event);
+             let pos = DataProvider.getMousePos(canvas, event);
              this.setState({
                  isDrawing: true,
                  prevPosition: pos,
@@ -140,17 +135,18 @@ export default class MnistView extends  React.Component{
 
 
          canvas.addEventListener("mousemove", (event) => {
+             let fontColor = StyleManager.getDrawColor(this.colorFontObject);
              if (this.state.isDrawing) {
-                 let pos = this.getMousePos(canvas, event);
+                 let pos = DataProvider.getMousePos(canvas, event);
                  this.setState({
                      prevPosition: this.state.currentPosition,
                      currentPosition: pos
                  });
                  if(this.state.rubberMode) {
-                     this.color = "black";
-                     this.draw(this.color, this.thickness);
+                     fontColor = "black";
+                     this.draw(fontColor, this.thickness);
                  }else{
-                     this.draw(this.color, this.thickness);
+                     this.draw(fontColor, this.thickness);
 
                  }
                  if(this.state.realTimePredicting){
@@ -190,7 +186,7 @@ export default class MnistView extends  React.Component{
         if(this.state.loadedData) {
 
             let canvas = this.refs.canvas;
-            let imageData = this.getScaledData(canvas);
+            let imageData = StyleManager.getScaledData(canvas);
 
             await tfjs.tidy(() => {
 
@@ -216,37 +212,6 @@ export default class MnistView extends  React.Component{
     };
 
     /**
-     * Scaling data from canvas.
-     * @param canvas
-     * @returns {ImageData}
-     */
-    getScaledData = (canvas) =>{
-        let scaledCanvas = document.createElement("canvas");
-        let scaledCtx = scaledCanvas.getContext("2d");
-
-        scaledCtx.width = 28;
-        scaledCtx.height = 28;
-
-        scaledCtx.drawImage(canvas, 0, 0, 28, 28);
-        return scaledCtx.getImageData(0, 0, 28, 28);
-    };
-    /**
-     * Reading the position of a mouse
-     * @param canvas
-     * @param evt
-     * @returns {{x: number, y: number}}
-     */
-    getMousePos =(canvas, evt)=> {
-        let rect = canvas.getBoundingClientRect();
-        return {
-            x: evt.clientX - rect.left,
-            y: evt.clientY - rect.top
-        };
-    };
-
-
-
-    /**
      * Drawing a line
      */
 
@@ -267,8 +232,6 @@ export default class MnistView extends  React.Component{
         ctx.restore();
 
     };
-
-
 
 
     /**
@@ -303,5 +266,7 @@ export default class MnistView extends  React.Component{
         let canvas = this.refs.canvas;
         download.href = canvas.toDataURL('image/png');
     };
+
+
 
 }
