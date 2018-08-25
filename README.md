@@ -41,7 +41,7 @@ npm start Starting the developer server.
 
 <a href="https://www.udemy.com/machinelearning/">Udemy course</a> <br/>
 <a href="https://github.com/lukasy09/IchLerneCNN.py">My repository storing the kernel & the model in json</a><br/>
-<a href="https://www.kaggle.com/c/digit-recognizer>MNIST Database</a><br/>
+<a href="https://www.kaggle.com/c/digit-recognizer">MNIST Database</a><br/>
 <a href="https://www.youtube.com/watch?v=RznKVRTFkBY&list=PLZbbT5o_s2xrwRnXk_yCPtnqqo4_u2YGL">Keras tutorial playlist</a><br/>
 <a href="https://js.tensorflow.org/tutorials/">TensorFlowjs docs</a><br/>
 <a href="https://github.com/SkalskiP/ILearnMachineLearning.js">Piotr Skalski's repository with similar projects</a><br/>
