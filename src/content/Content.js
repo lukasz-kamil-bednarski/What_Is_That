@@ -151,8 +151,7 @@ export default class Content extends React.Component {
         reader.readAsDataURL(e.target.files[0]);
         this.setState({
             loadedData: true
-
-        })
+        });
     };
 
     /**
@@ -162,7 +161,6 @@ export default class Content extends React.Component {
     async loadModel() {
 
          this.model = await tf.loadModel("https://raw.githubusercontent.com/lukasy09/IchLerneCNN.py/master/Objects/src/models/model_40.json/model.json");
-
     };
 
     /**
@@ -242,13 +240,9 @@ export default class Content extends React.Component {
                                     'rgba(228, 63, 82, 1)',
                                     'rgba(178, 221, 70, 1)',
                                 ],
-                            }
-                        ]
-                    }
-                });
-            })
-        }
-    };
+                            }]}});
+            });
+        }};
 
     getVideoMode = () => {
         this.setState({

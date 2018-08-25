@@ -6,6 +6,7 @@ import Converter from '../../utils/Converter';
 import StyleManager from "../../utils/StyleManager";
 import DataProvider from '../../utils/DataProvider';
 import "../Content.css";
+import LoadingScreen from "../LoadingScreen";
 
 export default class MnistView extends  React.Component{
     constructor(){
@@ -55,19 +56,19 @@ export default class MnistView extends  React.Component{
 
     render(){
         return (
-                <div className={"Mnist-container"} style={{height:window.innerHeight - 50}}>
-
-                    <div className={"Drawing-board-container"}>
-                        <ul>
-                            <li>
-                                <div onClick={() => this.props.getBack()} className={"Simple-button"}>Back</div>
-                            </li>
-                            <li>
-                                <div className={"Simple-button"} onClick={()=> this.cleanCanvas()}>Clean</div>
-                            </li>
-                            <li>
-                                <div className={"Simple-button"} style={{border:'solid 2px #f1f1f1'}} onClick={() => this.getPrediction()}>Predict</div>
-                            </li>
+            this.state.loadedData ?
+            <div className={"Mnist-container"} style={{height:window.innerHeight - 50}}>
+                <div className={"Drawing-board-container"}>
+                    <ul>
+                        <li>
+                            <div onClick={() => this.props.getBack()} className={"Simple-button"}>Back</div>
+                        </li>
+                           <li>
+                               <div className={"Simple-button"} onClick={()=> this.cleanCanvas()}>Clean</div>
+                           </li>
+                           <li>
+                               <div className={"Simple-button"} style={{border:'solid 2px #f1f1f1'}} onClick={() => this.getPrediction()}>Predict</div>
+                           </li>
                             <li>
                                 <div className={"Simple-button"} onClick={() => {this.setState({rubberMode : !this.state.rubberMode})}}
                                 style={this.state.rubberMode ? {border:'solid 3px #7FFF00'} : {} }>Rubber</div>
@@ -93,9 +94,11 @@ export default class MnistView extends  React.Component{
                                     <li><input min={0} max={255} defaultValue={241} ref={"R"}  type={"number"} onChange={(input)=>{this.colorFontObject['red'] = input.target.value;}}/></li>
                                     <li><input min={0} max={255} defaultValue={241} ref={"G"}  type={"number"} onChange={(input)=>{this.colorFontObject['green'] = input.target.value}}/></li>
                                     <li><input min={0} max={255} defaultValue={241} ref={"B"}  type={"number"} onChange={(input)=>{this.colorFontObject['blue'] = input.target.value}}/></li>
-                                    <li><canvas style={{backgroundColor:'#f1f1f1'}} width={25} height={25} ref={(canvas) => this.showCanvas = canvas}> </canvas></li>
                                 </ul>
                             </li>
+                            <li><canvas onClick={()=>{StyleManager.swapDrawColors(this.refs.canvas, this.colorFontObject)}}
+                                        style={{backgroundColor:'#f1f1f1',border:'dotted 2px #f1f1f1'}} width={25} height={25}
+                                        ref={(canvas) => this.showCanvas = canvas}> </canvas></li>
                             <li>
                                 <div style={{display:'flex',alignItems:'center',justifyContent:"center"}}>
                                     <label className={"switch"}>
@@ -107,7 +110,8 @@ export default class MnistView extends  React.Component{
                                 </div>
                             </li>
                         </ul>
-                        <canvas ref={"canvas"} width={500} height={500}> </canvas>
+                        <canvas ref={"canvas"} width={500} height={500} onMouseMove={(event)=>{this.addMouseMove(event)}}
+                                onMouseUp={()=>this.addMouseUp()} onMouseDown={(event)=>this.addMouseDown(event)} onMouseOut={()=>this.addMouseOut()}> </canvas>
                         </div>
                         <div className={"Prediction-container"} style={{height: window.innerHeight - 50}}>
                             <Pie data = {this.state.charData} />
@@ -115,58 +119,7 @@ export default class MnistView extends  React.Component{
                                 <h1>Prediction: {this.state.result}</h1>
                             </div>
                         </div>
-                </div>)}
-
-    componentDidMount(){
-         let canvas = this.refs.canvas;
-         let ctx = canvas.getContext("2d");
-         ctx.rect(0, 0, 500, 500);
-         ctx.fillStyle = "black";
-         ctx.fill();
-
-         canvas.addEventListener("mousedown", (event) => {
-             let pos = DataProvider.getMousePos(canvas, event);
-             this.setState({
-                 isDrawing: true,
-                 prevPosition: pos,
-                 currentPosition: pos
-             });
-         });
-
-
-         canvas.addEventListener("mousemove", (event) => {
-             let fontColor = StyleManager.getDrawColor(this.colorFontObject);
-             if (this.state.isDrawing) {
-                 let pos = DataProvider.getMousePos(canvas, event);
-                 this.setState({
-                     prevPosition: this.state.currentPosition,
-                     currentPosition: pos
-                 });
-                 if(this.state.rubberMode) {
-                     fontColor = "black";
-                     this.draw(fontColor, this.thickness);
-                 }else{
-                     this.draw(fontColor, this.thickness);
-
-                 }
-                 if(this.state.realTimePredicting){
-                     this.getPrediction().then();
-                 }
-                 }});
-
-
-        canvas.addEventListener("mouseup", () => {
-             this.setState({
-                 isDrawing: false
-             });
-         });
-
-        canvas.addEventListener(("mouseout"), () =>{
-            this.setState({
-                isDrawing: false
-            });
-        });
-    };
+                </div> : <LoadingScreen/>)}
 
     /**
      * Loading a model
@@ -252,8 +205,7 @@ export default class MnistView extends  React.Component{
                         data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                         label: "Digit confidence",
                         backgroundColor: this.colorList
-                    }]}
-        });
+                    }]}});
     };
 
 
@@ -267,6 +219,48 @@ export default class MnistView extends  React.Component{
         download.href = canvas.toDataURL('image/png');
     };
 
+    /**
+     * Functions to enable canvas working
+     */
 
+    addMouseMove = (event)=>{
+        let canvas = this.refs.canvas;
+        let fontColor = StyleManager.getDrawColor(this.colorFontObject);
+        if (this.state.isDrawing) {
+            let pos = DataProvider.getMousePos(canvas, event);
+            this.setState({
+                prevPosition: this.state.currentPosition,
+                currentPosition: pos});
+            if(this.state.rubberMode) {
+                    fontColor = "black";
+                    this.draw(fontColor, this.thickness);
+            }else{
+                this.draw(fontColor, this.thickness);
+                }
+                if(this.state.realTimePredicting){
+                    this.getPrediction().then();
+                }
+            }};
+
+    addMouseUp = () => {
+        this.setState({
+            isDrawing: false
+        });
+    };
+
+    addMouseDown = (event)=>{
+        let canvas = this.refs.canvas;
+        let pos = DataProvider.getMousePos(canvas, event);
+        this.setState({
+            isDrawing: true,
+            prevPosition: pos,
+            currentPosition: pos});
+    };
+
+    addMouseOut = ()=>{
+        this.setState({
+            isDrawing: false
+        });
+    }
 
 }

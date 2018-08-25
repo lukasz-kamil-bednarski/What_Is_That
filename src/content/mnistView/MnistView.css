@@ -96,10 +96,8 @@
     color:#f1f1f1;
     font-weight: bold;
 }
-.Color-choose-list  canvas{
-    border: dashed 2px #f1f1f1;
-    margin-left: 5%;
-}
+
+
 /* Prediction */
 .Prediction-container{
     display: flex;

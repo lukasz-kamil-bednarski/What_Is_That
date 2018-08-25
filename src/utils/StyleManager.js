@@ -38,7 +38,7 @@ export default class StyleManager {
 
 
     /**
-     *
+     *@Deprecated
      * @returns {any[]}
      */
     static renderColors = () =>{
@@ -95,7 +95,21 @@ export default class StyleManager {
        ctx.fillStyle = StyleManager.getDrawColor(colorObject);
        ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);
        ctx.fill();
+   };
+
+   static swapDrawColors = (canvas, colorFontObject) => {
+       let ctx = canvas.getContext("2d");
+       let imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+       for (let i = 0; i < imageData.data.length; i = i + 4) {
+           if (imageData.data[i] !== 0 && imageData.data[i + 1] !== 0 && imageData.data[i + 2] !== 0) {
+               if (imageData.data[i] !== colorFontObject['red'] || imageData.data[i + 1] !== colorFontObject['green'] || imageData.data[i + 2] !== colorFontObject['blue']) {
+                   imageData.data[i] = colorFontObject['red'];
+                   imageData.data[i + 1] = colorFontObject['green'];
+                   imageData.data[i + 2] = colorFontObject['blue'];
+               }
+           }
+       }
+       ctx.putImageData(imageData, 0, 0, 0, 0, 500, 500);
    }
-
-
 }
