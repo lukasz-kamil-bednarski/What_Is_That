@@ -2,10 +2,6 @@ import React from 'react';
 import DataProvider from '../utils/DataProvider'
 
 export default class NetworkGraph extends React.Component{
-   constructor(props){
-       super(props);
-   }
-
     render(){
         return(
             <div style={{textAlign:'center'}}>

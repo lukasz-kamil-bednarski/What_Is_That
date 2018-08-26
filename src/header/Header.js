@@ -1,12 +1,11 @@
 import React from 'react';
-import logo from '../assets/logo1.png';
 import "./Header.css";
 export default class Header extends React.Component{
     render(){
         return(
             <div className={"Navigation-bar"}>
                 <ul>
-                    <li><p>What is that? 2 Models of Kings  </p></li>
+                    <li><p>What is that? 2 Models of Kings </p></li>
                 </ul>
                 <ul style={{marginRight:'1.5%'}}>
                     <li>
@@ -21,9 +20,4 @@ export default class Header extends React.Component{
             </div>
         )
     }
-    redirect=()=>{
-        window.location="https://www.google.com"
-    }
-
-
 }
