@@ -25,16 +25,8 @@
 <p>The feature allows you to draw a number in range [0-9] and the machine predicts what it may be.All other links are below.</p>
 
 <p align = "center">
-	<img src="video/digits.gif" />
+	<img src="video/new_digits.gif" />
 </p>
-
-
-<p>You can install the project on your own computer</p>
-
-git clone https://github.com/lukasy09/What_Is_That.git <br/>
-npm run install  If you're using WebStorm, the IDE should do it for you. <br/>
-npm start Starting the developer server.
-
 
 <h2>Links</h2>
 <p>Resources that I have used to learn about ML and create the projects and other links</p>
