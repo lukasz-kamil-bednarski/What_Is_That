@@ -97,7 +97,11 @@
     font-weight: bold;
 }
 
-
+.Drawing-board-container li> canvas{
+    cursor: pointer;
+    background-color: #f1f1f1;
+    border:dotted 2px #f1f1f1;
+}
 /* Prediction */
 .Prediction-container{
     display: flex;

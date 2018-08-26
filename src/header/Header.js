@@ -6,11 +6,7 @@ export default class Header extends React.Component{
         return(
             <div className={"Navigation-bar"}>
                 <ul>
-                    <li style={{margin:'0 5px'}}><img alt={"ML-logo"} className={"Brain"} width={50} height={50} src={logo} title={"What is That?"}/></li>
-                    <li>
-                        <p>What is that? 2 Models of Kings  </p>
-                    </li>
-
+                    <li><p>What is that? 2 Models of Kings  </p></li>
                 </ul>
                 <ul style={{marginRight:'1.5%'}}>
                     <li>

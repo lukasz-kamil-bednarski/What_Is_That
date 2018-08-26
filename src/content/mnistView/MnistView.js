@@ -96,9 +96,8 @@ export default class MnistView extends  React.Component{
                                     <li><input min={0} max={255} defaultValue={241} ref={"B"}  type={"number"} onChange={(input)=>{this.colorFontObject['blue'] = input.target.value}}/></li>
                                 </ul>
                             </li>
-                            <li><canvas onClick={()=>{StyleManager.swapDrawColors(this.refs.canvas, this.colorFontObject)}}
-                                        style={{backgroundColor:'#f1f1f1',border:'dotted 2px #f1f1f1'}} width={25} height={25}
-                                        ref={(canvas) => this.showCanvas = canvas}> </canvas></li>
+                            <li><canvas onClick={()=>{StyleManager.swapDrawColors(this.refs.canvas, this.colorFontObject)}} width={25} height={25}
+                                      title={"Swap color"}  ref={(canvas) => this.showCanvas = canvas}> </canvas></li>
                             <li>
                                 <div style={{display:'flex',alignItems:'center',justifyContent:"center"}}>
                                     <label className={"switch"}>
