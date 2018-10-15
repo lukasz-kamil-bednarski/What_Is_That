@@ -144,7 +144,13 @@ export default class Content extends React.Component {
 
                 ctx.canvas.width = img.naturalWidth;
                 ctx.canvas.height = img.naturalHeight;
-                ctx.drawImage(img, 0, 0, img.naturalWidth,img.naturalHeight);
+                if (ctx.canvas.width > 700) {
+                    ctx.canvas.width = 700;
+                    if(ctx.canvas.height > 700){
+                        ctx.canvas.height = 700;
+                    }
+                }
+                ctx.drawImage(img, 0, 0, ctx.canvas.width,ctx.canvas.height);
             };
             img.src = event.target.result;
         };
