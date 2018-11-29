@@ -3,7 +3,6 @@ import "./Content.css";
 import * as tf from '@tensorflow/tfjs';
 import Converter from '../utils/Converter';
 import StyleManager from '../utils/StyleManager';
-import VideoView from './videoView/VideoView'
 import camera from '../assets/camera.png';
 import LoadingScreen from './LoadingScreen';
 import {Bar} from 'react-chartjs-2';
@@ -13,6 +12,7 @@ export default class Content extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             loadedData: false,
             result: '', //it's a string,
@@ -21,7 +21,6 @@ export default class Content extends React.Component {
             showGraph: false,
             classificationModel: true,
             mnistModel : false,
-
             charData : {
                 options:{
                     legend: {
@@ -32,12 +31,8 @@ export default class Content extends React.Component {
                     {
                         label:'Confidence',
                         data : []
-                    }
-                ]
-            }
-        }
-
-    }
+                    }]}
+        }}
 
     componentWillMount() {
         this.loadModel().then(()=> this.setState({isModelLoaded:true}));
@@ -47,38 +42,15 @@ export default class Content extends React.Component {
         if(this.state.classificationModel) {
             if (!this.state.showGraph) {
                 return (
-                    this.state.videoView ?
-                        <VideoView takeSnapshot={this.takeSnapshot}/> :
-                        this.state.isModelLoaded ?
-                            <div className="Content-box"
-                                 style={{width: window.innerWidth, height: window.innerHeight - 50}}>
-                                <div className={"Input-box"}
-                                     style={{width: window.innerWidth / 3, height: window.innerHeight - 50}}>
-                                    <ul>
-                                        <li>
-                                            <span>Class</span>
-                                            <label className={"switch"}>
-                                                <input type={"checkbox"} checked={this.state.classificationModel}
-                                                       onChange={() => this.handleModel(0)}/>
-                                                <span className={"slider round"}> </span>
-                                            </label>
-                                        </li>
+                    this.state.isModelLoaded ?
+                        <div className="Content-box" style={{width: window.innerWidth, height: window.innerHeight - 50}}>
 
-                                        <li>
-                                            <label className={"switch"}>
-                                                <input type={"checkbox"} checked={this.state.mnistModel}
-                                                       onChange={() => this.handleModel(1)}/>
-                                                <span className={"slider round"}> </span>
-                                            </label>
-                                            <span>MNIST</span>
-                                        </li>
-                                    </ul>
+                            <div className={"Input-box"} style={{width: window.innerWidth / 3, height: window.innerHeight - 50}}>
+                                    <p onClick={()=>this.switchModel()} style={{fontSize:'36pt', color:'#f1f1f1', fontWeight:'bolder',cursor:'pointer'}}>MNIST</p>
                                     <span style={StyleManager.arrowStyleHandle(this.state.loadedData)}
                                           title={"Click below!"}>&#x21CA;</span>
-                                    <input accept="image/x-png,image/jpeg" id="file" className={"Image-input"}
-                                           onChange={(e) => {
-                                               this.selectFile(e)
-                                           }} type='file' title="your text"/>
+                                    <input id="file" className={"Image-input"}
+                                           onChange={(e) => {this.selectFile(e)}} type='file' title="your text"/>
                                     <label htmlFor={"file"} className={"Image-input-label"}>Choose a file</label>
                                 </div>
 
@@ -98,12 +70,11 @@ export default class Content extends React.Component {
                                     </ul>
 
                                 </div>
-                                <img alt={"Camera mode"} onClick={() => this.getVideoMode()} src={camera}
+                                <img alt={"Camera mode"} src={camera}
                                      className={"Camera"} width={40} height={40}
-                                     title={"Camera"}/>
+                                     title={"This feature is not working on production version"}/>
 
-                            </div> : <LoadingScreen/>
-                );
+                            </div> : <LoadingScreen/>);
             } else {
                 return (
                     <div className="Content-box" style={{
@@ -126,9 +97,7 @@ export default class Content extends React.Component {
             return (
                 <MnistView getBack = {this.getBack}/>
             )
-        }
-
-    }
+        }}
 
     /**
      * @param e -> represents event of selecting a file
@@ -206,27 +175,6 @@ export default class Content extends React.Component {
             });
         }};
 
-    getVideoMode = () => {
-        this.setState({
-            videoView: true
-        })
-    };
-
-    takeSnapshot = (video) => {
-        this.setState({
-            videoView: false
-        });
-        this.drawImage(video).then();
-    };
-
-    async drawImage(video) {
-        let context = this.refs.canvas.getContext("2d");
-        await context.drawImage(video, 0, 0, 400, 400);
-        this.setState({
-            loadedData: true
-        });
-    }
-
 
     /**
      * Changing stage to graph
@@ -241,30 +189,12 @@ export default class Content extends React.Component {
     /**
      * Allows to switch models
      */
-    handleModel = (modelIndex)=>{
-       switch (modelIndex){
-           case 0:
-               if(!this.state.classificationModel){
-                   this.setState({
-                       classificationModel : true,
-                       mnistModel : false
-                   });
+    switchModel = ()=>{
+        if(!this.state.mnistModel){
+            this.setState({
+                mnistModel : true,
+                classificationModel : false});
                }
-               break;
-
-           case 1:
-               if(!this.state.mnistModel){
-                   this.setState({
-                       mnistModel : true,
-                       classificationModel : false
-                   });
-               }
-
-               break;
-
-           default:
-               console.log("Error in code")
-       }
     };
 
     getBack = ()=> {
@@ -272,6 +202,4 @@ export default class Content extends React.Component {
             classificationModel : true,
             mnistModel : false
         })
-}
-
-}
+}}

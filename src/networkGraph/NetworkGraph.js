@@ -145,7 +145,4 @@ export default class NetworkGraph extends React.Component{
             yStart = yStart + 2*radius + interval;
         }
     }
-
-
-
 }

@@ -73,11 +73,6 @@ export default class MnistView extends  React.Component{
                                 <div className={"Simple-button"} onClick={() => {this.setState({rubberMode : !this.state.rubberMode})}}
                                 style={this.state.rubberMode ? {border:'solid 3px #7FFF00'} : {} }>Rubber</div>
                             </li>
-                            <li>
-                                <a ref={"download"} download={"image.png"}>
-                                    <div className={"Simple-button"} onClick={() => this.downloadImg()}>
-                                        Download
-                                    </div></a></li>
                         </ul>
                         <ul>
                             <li>
@@ -109,7 +104,7 @@ export default class MnistView extends  React.Component{
                                 </div>
                             </li>
                         </ul>
-                        <canvas ref={"canvas"} width={500} height={500} onMouseMove={(event)=>{this.addMouseMove(event)}}
+                        <canvas ref={"canvas"} width={500} height={450} onMouseMove={(event)=>{this.addMouseMove(event)}}
                                 onMouseUp={()=>this.addMouseUp()} onMouseDown={(event)=>this.addMouseDown(event)} onMouseOut={()=>this.addMouseOut()}> </canvas>
                         </div>
                         <div className={"Prediction-container"} style={{height: window.innerHeight - 50}}>
