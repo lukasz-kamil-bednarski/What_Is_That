@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from "./header/Header"
 import Content from './content/Content';
 import './App.css';
+import {BrowserRouter, Route} from 'react-router-dom';
 export default class App extends Component {
   constructor(props){
       super(props);
@@ -14,10 +15,12 @@ export default class App extends Component {
 
   render() {
     return (
+        <BrowserRouter>
             <div style={{width:this.windowWidth, height:this.windowHeight,padding:'0',margin:'0'}}>
                 <Header/>
-                <Content/>
+                <Route exact path = '/' component = {Content}/>
             </div>
+        </BrowserRouter>
     );
   }
 }
