@@ -99,11 +99,10 @@ export default class Converter {
                 'umbrella': 38,
                 'watch': 39}
         );
-
         let max = Math.max(...array);
-      let winningIndex = array.indexOf(max);
+        let winningIndex = array.indexOf(max);
 
-      return STR_MAP[winningIndex];
+        return STR_MAP[winningIndex];
   };
 
   static swap = (obj) =>{

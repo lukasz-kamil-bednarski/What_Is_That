@@ -108,12 +108,6 @@ export default class Content extends React.Component {
 
                 ctx.canvas.width = img.naturalWidth;
                 ctx.canvas.height = img.naturalHeight;
-                if (ctx.canvas.width > 700) {
-                    ctx.canvas.width = 700;
-                    if(ctx.canvas.height > 700){
-                        ctx.canvas.height = 700;
-                    }
-                }
                 ctx.drawImage(img, 0, 0, ctx.canvas.width,ctx.canvas.height);
             };
             img.src = event.target.result;
@@ -130,7 +124,7 @@ export default class Content extends React.Component {
      */
     async loadModel() {
 
-         this.model = await tf.loadModel("https://raw.githubusercontent.com/lukasy09/IchLerneCNN.py/master/Objects/src/models/model_40.json/model.json");
+         this.model = await tf.loadModel("https://raw.githubusercontent.com/lukasy09/KernelBase.py/master/Objects/src/models/model_40.json/model.json");
     };
 
     /**

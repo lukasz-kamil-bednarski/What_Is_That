@@ -1,5 +1,5 @@
 .Loading-container{
-    background-color: #333333;
+    background: linear-gradient(#111111, #212121);
     color:#f1f1f1;
     display: flex;
     justify-content: center;

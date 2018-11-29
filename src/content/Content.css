@@ -1,5 +1,5 @@
 .Content-box{
-    background-color: #333333;
+    background: linear-gradient(#212121,#111111);
     display: flex;
     padding: 0;
 }
@@ -155,6 +155,7 @@ input:checked + .slider:before {
     margin-bottom: 2%;
     cursor:pointer;
     border: solid 2px #222222;
+    transition: 0.3s ease;
 }
 .Image-box button:hover{
     color:#f1f1f1;

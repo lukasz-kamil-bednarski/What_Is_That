@@ -61,7 +61,7 @@ export default class MnistView extends  React.Component{
                 <div className={"Drawing-board-container"}>
                     <ul>
                         <li>
-                            <div onClick={() => this.props.getBack()} className={"Simple-button"}>Back</div>
+                            <div onClick={() => this.props.getBack()} className={"Simple-button"}>&larr;</div>
                         </li>
                            <li>
                                <div className={"Simple-button"} onClick={()=> this.cleanCanvas()}>Clean</div>

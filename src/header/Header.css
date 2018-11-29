@@ -10,7 +10,7 @@ ul > li > p{
 
 }.Navigation-bar{
      width: 100vw;
-     background-color: #313131;
+     background-color: #212121;
      display: flex;
      justify-content: space-between;
      flex-direction: row;
