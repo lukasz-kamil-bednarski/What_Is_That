@@ -3,7 +3,6 @@ import "./Content.css";
 import * as tf from '@tensorflow/tfjs';
 import Converter from '../utils/Converter';
 import StyleManager from '../utils/StyleManager';
-import camera from '../assets/camera.png';
 import LoadingScreen from './LoadingScreen';
 import {Bar} from 'react-chartjs-2';
 import MnistView from './mnistView/MnistView';
@@ -70,10 +69,6 @@ export default class Content extends React.Component {
                                     </ul>
 
                                 </div>
-                                <img alt={"Camera mode"} src={camera}
-                                     className={"Camera"} width={40} height={40}
-                                     title={"This feature is not working on production version"}/>
-
                             </div> : <LoadingScreen/>);
             } else {
                 return (
