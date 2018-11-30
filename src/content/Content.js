@@ -78,12 +78,11 @@ export default class Content extends React.Component {
                         padding: '10px',
                         flexDirection: 'column'
                     }}>
-                        <div className={"Button-back"}>
-                            <button onClick={() => this.setState({showGraph: false})}>Back</button>
-                        </div>
-
                         <div className={"Chart-box"}>
                             <Bar data={this.state.charData}/>
+                            <div className={"Button-back"}>
+                                <button onClick={() => this.setState({showGraph: false})}>Back</button>
+                            </div>
                         </div>
                     </div>
                 )

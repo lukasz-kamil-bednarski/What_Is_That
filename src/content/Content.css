@@ -15,6 +15,7 @@
     color: #f1f1f1;
     font-weight: bolder;
     font-size: 144pt;
+    transition: 0.3s ease;
     /*animation: shake 3s infinite cubic-bezier(.36,.07,.19,.97) both;*/
 }
 .Input-box>span:hover{
@@ -188,13 +189,10 @@ input:checked + .slider:before {
     margin-top: 1%;
 }
 .Chart-box{
-    flex:2;
-    margin: 0;
-    padding: 0;
     align-items: center;
     justify-content: center;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 .Button-back{
     position: absolute;
@@ -204,13 +202,14 @@ input:checked + .slider:before {
 .Button-back button{
     color: #222222;
     font-size: 16pt;
-    background-color: #f1f1f1;
+    background-color: transparent;
     border-radius: 20px;
     cursor:pointer;
     border: solid 2px #222222;
+    margin-left: 100%;
 }
 .Button-back button:hover{
     color:#f1f1f1;
-    background-color: #333333;
+    background-color: transparent;
     border: solid 2px #f1f1f1;
 }
