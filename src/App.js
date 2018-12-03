@@ -3,6 +3,7 @@ import Header from "./header/Header"
 import Content from './content/Content';
 import './App.css';
 import {BrowserRouter, Route} from 'react-router-dom';
+import Entry from './entry/Entry';
 export default class App extends Component {
   constructor(props){
       super(props);
@@ -18,7 +19,8 @@ export default class App extends Component {
         <BrowserRouter>
             <div style={{width:this.windowWidth, height:this.windowHeight,padding:'0',margin:'0'}}>
                 <Header/>
-                <Route exact path = '/' component = {Content}/>
+                <Route exact path = '/' component  = {Entry}  />
+                <Route path = '/ml-content' component = {Content}/>
             </div>
         </BrowserRouter>
     );
