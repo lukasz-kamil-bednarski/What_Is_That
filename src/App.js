@@ -18,7 +18,6 @@ export default class App extends Component {
     return (
         <BrowserRouter>
             <div style={{width:this.windowWidth, height:this.windowHeight,padding:'0',margin:'0'}}>
-                <Header/>
                 <Route exact path = '/' component = {Content}/>
             </div>
         </BrowserRouter>

@@ -1,7 +1,9 @@
 .Content-box{
-    background: linear-gradient(#212121,#111111);
+    background: linear-gradient(black,#111111);
     display: flex;
     padding: 0;
+    color: #cccccc;
+    text-align: center;
 }
 .Input-box{
     display: flex;
@@ -14,14 +16,14 @@
 .Input-box span {
     color: #f1f1f1;
     font-weight: bolder;
-    font-size: 144pt;
+    font-size: 200pt;
     transition: 0.3s ease;
-    /*animation: shake 3s infinite cubic-bezier(.36,.07,.19,.97) both;*/
 }
 .Input-box>span:hover{
     animation: shake 3s infinite cubic-bezier(.36,.07,.19,.97) both;
     cursor: default;
 }
+
 @keyframes shake {
     10%, 90% {
         transform: translate3d(0, -20px, 0);
@@ -43,16 +45,18 @@
     z-index: -1;
 }
 .Image-input-label{
-    color: #f1f1f1;
-    font-weight: bold;
-    font-size: 14pt;
-    padding: 10px;
+    font-weight: bolder;
+    font-size: 24pt;
     cursor: pointer;
-    border-radius: 20px;
+    border-radius: 30px;
+    padding: 10px;
+    transition: 0.5s ease;
 }
+
+
 .Image-input-label:hover{
     background-color: #f1f1f1;
-    color: #222222;
+    color: #212121;
 }
 
 .switch {
@@ -113,27 +117,14 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
-
-.Input-box > ul {
-    padding: 0;
-    display: flex;
-    align-items: center;
+.Input-box >p{
+    font-size: 72pt;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.Input-box >p:hover{
     color: #f1f1f1;
-    margin: 0;
-
-}
-.Input-box > ul li {
-    display: flex;
-    align-items: center;
-    margin-right: 2%;
-    margin-left: 2%;
-    padding: 0;
-}
-.Input-box > ul > li span{
-    font-size: 16pt;
-    margin-right: 5%;
-    margin-left: 5%;
-    padding: 0;
 }
 
 /*Image container box styles*/
@@ -151,43 +142,32 @@ input:checked + .slider:before {
     color: #222222;
     font-weight: bolder;
     font-size: 32pt;
-    background-color: #f1f1f1;
+    background-color: #cccccc;
     border-radius: 20px;
-    margin-bottom: 2%;
     cursor:pointer;
-    border: solid 2px #222222;
     transition: 0.3s ease;
 }
 .Image-box button:hover{
     color:#f1f1f1;
-    background-color: #333333;
-    border: solid 2px #af111c;;
-
+    background-color: #111111;
 }
 .Image-box canvas{
     border: dotted 2px #f1f1f1;
 }
-.Image-box span {
-    color:#f1f1f1;
-    font-weight: bolder;
-    font-size: 32pt;
-    border-radius: 20%;
-}
-.Image-box ul {
+.Canvas-wrapper{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    margin-right: 5%;
+    margin: 2%;
+    font-size: 48pt;
+    font-weight: bolder;
 }
-.Image-box ul li{
-    margin-top: 10%;
+.Button-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 1%;
 }
-.Camera{
-    cursor: pointer;
-    margin-right: 2%;
-    margin-top: 1%;
-}
+
+
 .Chart-box{
     align-items: center;
     justify-content: center;
@@ -198,18 +178,4 @@ input:checked + .slider:before {
     position: absolute;
     top: 2.5%;
     left:20%;
-}
-.Button-back button{
-    color: #222222;
-    font-size: 16pt;
-    background-color: transparent;
-    border-radius: 20px;
-    cursor:pointer;
-    border: solid 2px #222222;
-    margin-left: 100%;
-}
-.Button-back button:hover{
-    color:#f1f1f1;
-    background-color: transparent;
-    border: solid 2px #f1f1f1;
 }

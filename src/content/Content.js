@@ -4,7 +4,6 @@ import * as tf from '@tensorflow/tfjs';
 import Converter from '../utils/Converter';
 import StyleManager from '../utils/StyleManager';
 import LoadingScreen from './LoadingScreen';
-import {Bar} from 'react-chartjs-2';
 import MnistView from './mnistView/MnistView';
 
 export default class Content extends React.Component {
@@ -14,7 +13,7 @@ export default class Content extends React.Component {
 
         this.state = {
             loadedData: false,
-            result: '', //it's a string,
+            result: '',
             videoView: false,
             isModelLoaded: false,
             showGraph: false,
@@ -39,54 +38,27 @@ export default class Content extends React.Component {
 
     render() {
         if(this.state.classificationModel) {
-            if (!this.state.showGraph) {
                 return (
                     this.state.isModelLoaded ?
-                        <div className="Content-box" style={{width: window.innerWidth, height: window.innerHeight - 50}}>
+                        <div className="Content-box" style={{width: window.innerWidth, height: window.innerHeight}}>
 
-                            <div className={"Input-box"} style={{width: window.innerWidth / 3, height: window.innerHeight - 50}}>
-                                    <p onClick={()=>this.switchModel()} style={{fontSize:'36pt', color:'#f1f1f1', fontWeight:'bolder',cursor:'pointer'}}>MNIST</p>
-                                    <span style={StyleManager.arrowStyleHandle(this.state.loadedData)}
-                                          title={"Click below!"}>&#x21CA;</span>
+                            <div className={"Input-box"} style={{width: window.innerWidth / 3, height: window.innerHeight}}>
+                                    <p onClick={()=>this.switchModel()}>MNIST</p>
                                     <input id="file" className={"Image-input"}
-                                           onChange={(e) => {this.selectFile(e)}} type='file' title="your text"/>
+                                           onChange={(e) => {this.selectFile(e)}} type='file' title="Yes, Click it!"/>
                                     <label htmlFor={"file"} className={"Image-input-label"}>Choose a file</label>
-                                </div>
-
-                                <div className={"Image-box"}>
-                                    <ul>
-                                        <canvas ref={"canvas"} height={400} width={400}> </canvas>
-                                        <span>Prediction:{this.state.result}</span>
-                                    </ul>
-
-                                    <ul style={{marginLeft: '1%'}}>
-                                        <li>
-                                            <button onClick={() => this.get_prediction()}>Predict</button>
-                                        </li>
-                                        <li>
-                                            <button onClick={() => this.showGraph()}>Graph</button>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                            </div> : <LoadingScreen/>);
-            } else {
-                return (
-                    <div className="Content-box" style={{
-                        width: window.innerWidth,
-                        height: window.innerHeight - 50,
-                        padding: '10px',
-                        flexDirection: 'column'
-                    }}>
-                        <div className={"Chart-box"}>
-                            <Bar data={this.state.charData}/>
-                            <div className={"Button-back"}>
-                                <button onClick={() => this.setState({showGraph: false})}>Back</button>
                             </div>
-                        </div>
-                    </div>
-                )
-            }
+
+                            <div className={"Image-box"}>
+                               <div className={"Canvas-wrapper"}>
+                                    <canvas ref={"canvas"} height={550} width={550}> </canvas>
+                                    <span>Prediction:{this.state.result}</span>
+                               </div>
+                                <div className={"Button-wrapper"}>
+                                    <button onClick={() => this.get_prediction()}>Predict</button>
+                                </div>
+                            </div>
+                        </div> : <LoadingScreen/>);
         }else{
             return (
                 <MnistView getBack = {this.getBack}/>
@@ -162,16 +134,6 @@ export default class Content extends React.Component {
                             }]}});
             });
         }};
-
-
-    /**
-     * Changing stage to graph
-     */
-    showGraph = ()=>{
-        this.setState({
-            showGraph : true
-        })
-    };
 
 
     /**

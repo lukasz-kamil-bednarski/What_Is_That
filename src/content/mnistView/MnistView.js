@@ -57,7 +57,7 @@ export default class MnistView extends  React.Component{
     render(){
         return (
             this.state.loadedData ?
-            <div className={"Mnist-container"} style={{height:window.innerHeight - 50}}>
+            <div className={"Mnist-container"} style={{height:window.innerHeight}}>
                 <div className={"Drawing-board-container"}>
                     <ul>
                         <li>
@@ -107,7 +107,7 @@ export default class MnistView extends  React.Component{
                         <canvas ref={"canvas"} width={500} height={450} onMouseMove={(event)=>{this.addMouseMove(event)}}
                                 onMouseUp={()=>this.addMouseUp()} onMouseDown={(event)=>this.addMouseDown(event)} onMouseOut={()=>this.addMouseOut()}> </canvas>
                         </div>
-                        <div className={"Prediction-container"} style={{height: window.innerHeight - 50}}>
+                        <div className={"Prediction-container"} style={{height: window.innerHeight}}>
                             <Pie data = {this.state.charData} />
                             <div>
                                 <h1>Prediction: {this.state.result}</h1>
@@ -256,5 +256,4 @@ export default class MnistView extends  React.Component{
             isDrawing: false
         });
     }
-
 }

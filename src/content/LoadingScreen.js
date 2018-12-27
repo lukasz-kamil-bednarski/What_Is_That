@@ -4,8 +4,8 @@ import "./LoadingScreen.css";
 export default class LoadingScreen extends React.Component{
     render(){
         return(
-            <div className={"Loading-container"} style={{width:window.innerWidth,height:window.innerHeight-50}}>
-                <canvas className={""} width={400} height={400} ref={"canvas"}> </canvas>
+            <div className={"Loading-container"} style={{width:window.innerWidth,height:window.innerHeight}}>
+                <canvas width={400} height={400} ref={"canvas"}> </canvas>
                 <span>Loading...</span>
             </div>
         )
@@ -13,7 +13,6 @@ export default class LoadingScreen extends React.Component{
     componentDidMount(){
         let context = this.refs.canvas.getContext("2d");
         this.animateLoadingScreen(context);
-
     }
     animateLoadingScreen = (context) =>{
         context.strokeStyle = "#f1f1f1";
