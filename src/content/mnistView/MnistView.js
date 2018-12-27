@@ -203,16 +203,6 @@ export default class MnistView extends  React.Component{
     };
 
 
-
-    /**
-     * Lets user to download a canvas as a .PNG file.
-     */
-    downloadImg = () =>{
-        let download = this.refs.download;
-        let canvas = this.refs.canvas;
-        download.href = canvas.toDataURL('image/png');
-    };
-
     /**
      * Functions to enable canvas working
      */

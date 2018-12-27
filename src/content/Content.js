@@ -10,6 +10,7 @@ export default class Content extends React.Component {
 
     constructor(props) {
         super(props);
+        this.img = new Image();
 
         this.state = {
             loadedData: false,
@@ -19,17 +20,6 @@ export default class Content extends React.Component {
             showGraph: false,
             classificationModel: true,
             mnistModel : false,
-            charData : {
-                options:{
-                    legend: {
-                        labels: Converter.getPropNames(),
-                        fontColor:'#f1f1f1'
-                }},
-                datasets:[
-                    {
-                        label:'Confidence',
-                        data : []
-                    }]}
         }}
 
     componentWillMount() {
@@ -45,13 +35,13 @@ export default class Content extends React.Component {
                             <div className={"Input-box"} style={{width: window.innerWidth / 3, height: window.innerHeight}}>
                                     <p onClick={()=>this.switchModel()}>MNIST</p>
                                     <input id="file" className={"Image-input"}
-                                           onChange={(e) => {this.selectFile(e)}} type='file' title="Yes, Click it!"/>
+                                           onChange={(e) => {this.onImageUpload(e)}} type='file' title="Yes, Click it!"/>
                                     <label htmlFor={"file"} className={"Image-input-label"}>Choose a file</label>
                             </div>
 
                             <div className={"Image-box"}>
                                <div className={"Canvas-wrapper"}>
-                                    <canvas ref={"canvas"} height={550} width={550}> </canvas>
+                                    <canvas ref={"canvas"} height={600} width={600}> </canvas>
                                     <span>Prediction:{this.state.result}</span>
                                </div>
                                 <div className={"Button-wrapper"}>
@@ -60,34 +50,56 @@ export default class Content extends React.Component {
                             </div>
                         </div> : <LoadingScreen/>);
         }else{
-            return (
-                <MnistView getBack = {this.getBack}/>
-            )
-        }}
+            return(<MnistView/>)
+        }
+    }
 
-    /**
-     * @param e -> represents event of selecting a file
-     */
 
-    selectFile = (e) => {
+    componentDidMount() {
+        this.img.addEventListener('load', this.drawImageToCanvas);
+    }
+
+
+    onImageUpload = (event) => {
+        const file = event.target.files[0];
+
+        if(file) {
+            this.img.src = URL.createObjectURL(file);
+            this.setState({
+                loadedData: true
+            });
+        }
+    };
+
+    drawImageToCanvas = () => {
         let canvas = this.refs.canvas;
         let ctx = canvas.getContext("2d");
-        let reader = new FileReader();
-        reader.onload = function (event) {
-            let img = new Image();
-            img.onload = function () {
+        const maxWidth = ctx.canvas.width;
+        const maxHeight = ctx.canvas.height;
 
-                ctx.canvas.width = img.naturalWidth;
-                ctx.canvas.height = img.naturalHeight;
-                ctx.drawImage(img, 0, 0, ctx.canvas.width,ctx.canvas.height);
-            };
-            img.src = event.target.result;
-        };
-        reader.readAsDataURL(e.target.files[0]);
-        this.setState({
-            loadedData: true
-        });
-    };
+        const ratio = this.img.naturalWidth / this.img.naturalHeight;
+
+        if(this.img.naturalWidth <= maxWidth && this.img.naturalHeight <= maxHeight){
+            ctx.canvas.width = this.img.naturalWidth;
+            ctx.canvas.height = this.img.naturalHeight;
+            ctx.drawImage(this.img, 0, 0, this.img.naturalWidth, this.img.naturalHeight);
+        }else{
+            if(this.img.naturalWidth > maxWidth && this.img.naturalHeight < maxHeight){
+                ctx.canvas.width = maxWidth;
+                ctx.canvas.height = this.img.naturalHeight / ratio;
+                ctx.drawImage(this.img, 0, 0, maxWidth, this.img.naturalHeight / ratio);
+            }else if(this.img.naturalWidth < maxWidth && this.img.naturalHeight > maxHeight){
+                ctx.canvas.width = this.img.naturalWidth / ratio;
+                ctx.canvas.height =maxHeight;
+                ctx.drawImage(this.img, 0, 0, this.img.naturalWidth / ratio, maxHeight);
+            }else{
+                ctx.drawImage(this.img, 0, 0, maxWidth, maxHeight);
+            }
+        }}
+
+
+    ;
+
 
     /**
      * Loading the pre-trained model.
@@ -102,6 +114,7 @@ export default class Content extends React.Component {
      * Getting image data from canvas&preparing data for prediction&predicting.
      */
     async get_prediction (){
+
         if (this.state.loadedData) {
 
             await tf.tidy(()=> {
@@ -121,17 +134,9 @@ export default class Content extends React.Component {
 
                 let results = Converter.convertToArray(data);
                 let str = Converter.mapToStr(results);
-
                 this.setState({
-                    result: str,
-                    charData : {
-                            labels: Converter.getPropNames(),
-                            datasets:[
-                                {
-                                label:'Confidence',
-                                data :results,
-                                backgroundColor:StyleManager.generateRandColors(40),
-                            }]}});
+                    result: str
+                })
             });
         }};
 
@@ -147,9 +152,4 @@ export default class Content extends React.Component {
                }
     };
 
-    getBack = ()=> {
-        this.setState({
-            classificationModel : true,
-            mnistModel : false
-        })
-}}
+}

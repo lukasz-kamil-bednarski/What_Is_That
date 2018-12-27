@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Header from "./header/Header"
 import Content from './content/Content';
 import './App.css';
 import {BrowserRouter, Route} from 'react-router-dom';
-import Entry from './entry/Entry';
+
+
 export default class App extends Component {
   constructor(props){
       super(props);

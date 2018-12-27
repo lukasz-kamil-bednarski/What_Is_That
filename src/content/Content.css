@@ -168,14 +168,3 @@ input:checked + .slider:before {
 }
 
 
-.Chart-box{
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-}
-.Button-back{
-    position: absolute;
-    top: 2.5%;
-    left:20%;
-}
