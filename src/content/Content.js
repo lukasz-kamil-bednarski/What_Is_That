@@ -2,7 +2,6 @@ import React from 'react';
 import "./Content.css";
 import * as tf from '@tensorflow/tfjs';
 import Converter from '../utils/Converter';
-import StyleManager from '../utils/StyleManager';
 import LoadingScreen from './LoadingScreen';
 import MnistView from './mnistView/MnistView';
 
@@ -19,7 +18,6 @@ export default class Content extends React.Component {
             isModelLoaded: false,
             showGraph: false,
             classificationModel: true,
-            mnistModel : false,
         }}
 
     componentWillMount() {
@@ -33,7 +31,7 @@ export default class Content extends React.Component {
                         <div className="Content-box" style={{width: window.innerWidth, height: window.innerHeight}}>
 
                             <div className={"Input-box"} style={{width: window.innerWidth / 3, height: window.innerHeight}}>
-                                    <p onClick={()=>this.switchModel()}>MNIST</p>
+                                    <span onClick={()=>this.switchModel()}>MNIST</span>
                                     <input id="file" className={"Image-input"}
                                            onChange={(e) => {this.onImageUpload(e)}} type='file' title="Yes, Click it!"/>
                                     <label htmlFor={"file"} className={"Image-input-label"}>Choose a file</label>
@@ -50,7 +48,7 @@ export default class Content extends React.Component {
                             </div>
                         </div> : <LoadingScreen/>);
         }else{
-            return(<MnistView/>)
+            return(<MnistView getBack = {this.getBack}/>)
         }
     }
 
@@ -151,5 +149,12 @@ export default class Content extends React.Component {
                 classificationModel : false});
                }
     };
+
+    getBack = () =>{
+        this.setState({
+            classificationModel: true,
+            mnistModel : false
+        })
+    }
 
 }

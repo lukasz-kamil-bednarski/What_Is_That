@@ -1,7 +1,7 @@
 import React from 'react';
 import "./MnistView.css";
 import * as tfjs from '@tensorflow/tfjs';
-import {Pie} from 'react-chartjs-2';
+import {Doughnut} from 'react-chartjs-2';
 import Converter from '../../utils/Converter';
 import StyleManager from "../../utils/StyleManager";
 import DataProvider from '../../utils/DataProvider';
@@ -31,7 +31,7 @@ export default class MnistView extends  React.Component{
         this.state = {
             result : '',
             rubberMode: false,
-            realTimePredicting: false,
+            realTimePredicting: true,
             isDrawing : false, // isDrawing == mouseDown
             prevPosition : null,
             currentPosition : null,
@@ -57,63 +57,30 @@ export default class MnistView extends  React.Component{
     render(){
         return (
             this.state.loadedData ?
-            <div className={"Mnist-container"} style={{height:window.innerHeight}}>
+            <div className={"Mnist-container"}>
                 <div className={"Drawing-board-container"}>
-                    <ul>
-                        <li>
-                            <div onClick={() => this.props.getBack()} className={"Simple-button"}>&larr;</div>
-                        </li>
-                           <li>
-                               <div className={"Simple-button"} onClick={()=> this.cleanCanvas()}>Clean</div>
-                           </li>
-                           <li>
-                               <div className={"Simple-button"} style={{border:'solid 2px #f1f1f1'}} onClick={() => this.getPrediction()}>Predict</div>
-                           </li>
-                            <li>
-                                <div className={"Simple-button"} onClick={() => {this.setState({rubberMode : !this.state.rubberMode})}}
-                                style={this.state.rubberMode ? {border:'solid 3px #7FFF00'} : {} }>Rubber</div>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <div>
-                                    <label>
-                                        Thickness
-                                        <input type={"number"} min={0} defaultValue={1} onChange={(input) => this.thickness = input.target.value}/>
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <ul className={"Color-choose-list"} onChange={() => {StyleManager.colorCanvas(this.showCanvas, this.colorFontObject  )}}>
-                                    <li><label>RGB</label></li>
-                                    <li><input min={0} max={255} defaultValue={241} ref={"R"}  type={"number"} onChange={(input)=>{this.colorFontObject['red'] = input.target.value;}}/></li>
-                                    <li><input min={0} max={255} defaultValue={241} ref={"G"}  type={"number"} onChange={(input)=>{this.colorFontObject['green'] = input.target.value}}/></li>
-                                    <li><input min={0} max={255} defaultValue={241} ref={"B"}  type={"number"} onChange={(input)=>{this.colorFontObject['blue'] = input.target.value}}/></li>
-                                </ul>
-                            </li>
-                            <li><canvas onClick={()=>{StyleManager.swapDrawColors(this.refs.canvas, this.colorFontObject)}} width={25} height={25}
-                                      title={"Swap color"}  ref={(canvas) => this.showCanvas = canvas}> </canvas></li>
-                            <li>
-                                <div style={{display:'flex',alignItems:'center',justifyContent:"center"}}>
-                                    <label className={"switch"}>
-                                        <input type={"checkbox"} checked={this.state.realTimePredicting}
-                                               onChange={() => {this.setState({realTimePredicting: !this.state.realTimePredicting}) }}/>
-                                        <span className={"slider round"}> </span>
-                                    </label>
-                                    <label>Real-Time predict</label>
-                                </div>
-                            </li>
-                        </ul>
-                        <canvas ref={"canvas"} width={500} height={450} onMouseMove={(event)=>{this.addMouseMove(event)}}
-                                onMouseUp={()=>this.addMouseUp()} onMouseDown={(event)=>this.addMouseDown(event)} onMouseOut={()=>this.addMouseOut()}> </canvas>
-                        </div>
-                        <div className={"Prediction-container"} style={{height: window.innerHeight}}>
-                            <Pie data = {this.state.charData} />
+                    <div className={"Button-wrapper"}>
+                        <div className={"Simple-button"} onClick={() => this.props.getBack()} >&larr;</div>
+                        <div className={"Simple-button"} onClick={()=> this.cleanCanvas()}>Clean</div>
+                        <div className={"Simple-button"} onClick={() => {this.setState({rubberMode : !this.state.rubberMode})}} style={this.state.rubberMode ? {color:'green'} : {} }>Rubber</div>
+                    </div>
+                    <canvas ref={"canvas"} className={"Draw-canvas"} width={600} height={600} onMouseMove={(event)=>{this.addMouseMove(event)}}
+                              onMouseUp={()=>this.addMouseUp()} onMouseDown={(event)=>this.addMouseDown(event)} onMouseOut={()=>this.addMouseOut()}> </canvas>
+                </div>
+                    <div className={"Prediction-container"}>
+                            <Doughnut  data = {this.state.charData} />
                             <div>
-                                <h1>Prediction: {this.state.result}</h1>
+                                Prediction: {this.state.result}
                             </div>
                         </div>
                 </div> : <LoadingScreen/>)}
+
+
+
+    componentDidMount(){
+        this.initializeCanvas();
+    }
+
 
     /**
      * Loading a model
@@ -126,7 +93,7 @@ export default class MnistView extends  React.Component{
 
 
     /**
-     * Taking the data from Canvas & Preprocessing & loading to the model & returning the prediction
+     * Taking the data from Canvas & preprocessing & loading to the model & returning the prediction
      * @returns {Promise<void>}
      */
     async getPrediction(){
@@ -158,6 +125,12 @@ export default class MnistView extends  React.Component{
         }
     };
 
+    initializeCanvas = () => {
+        let canvas = this.refs.canvas;
+        let ctx = canvas.getContext("2d");
+        console.log("XD")
+
+        };
     /**
      * Drawing a line
      */
@@ -201,6 +174,7 @@ export default class MnistView extends  React.Component{
                         backgroundColor: this.colorList
                     }]}});
     };
+
 
 
     /**
