@@ -29,12 +29,9 @@
 </p>
 
 <h2>Links</h2>
-<p>Resources that I have used to learn about ML and create the projects and other links</p>
+<p>Resources that I was using learn about ML and create the projects and other links</p>
 
-<a href="https://www.udemy.com/machinelearning/">Udemy course</a> <br/>
 <a href="https://github.com/lukasy09/IchLerneCNN.py">My repository storing the kernel & the model in json</a><br/>
 <a href="https://www.kaggle.com/c/digit-recognizer">MNIST Database</a><br/>
 <a href="https://www.youtube.com/watch?v=RznKVRTFkBY&list=PLZbbT5o_s2xrwRnXk_yCPtnqqo4_u2YGL">Keras tutorial playlist</a><br/>
 <a href="https://js.tensorflow.org/tutorials/">TensorFlowjs docs</a><br/>
-<a href="https://github.com/SkalskiP/ILearnMachineLearning.js">Piotr Skalski's repository with similar projects</a><br/>
-<a href="https://medium.com/@piotr.skalski92/my-first-tensorflow-js-project-b481bdad17fb">Piotr Skalski's article on ML and steps in creating such projects</a>

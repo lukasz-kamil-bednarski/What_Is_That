@@ -12,7 +12,7 @@ export default class MnistView extends  React.Component{
     constructor(){
         super();
         this.colorList = [
-            'rgba(255, 0, 0, 0.3)',
+            'rgba(241, 241, 241, 0.3)',
             'rgba(0, 255, 0, 0.7)',
             'rgba(150, 50, 255, 0.3)',
             'rgba(228, 90, 182, 1)',
@@ -31,7 +31,6 @@ export default class MnistView extends  React.Component{
         this.state = {
             result : '',
             rubberMode: false,
-            realTimePredicting: true,
             isDrawing : false, // isDrawing == mouseDown
             prevPosition : null,
             currentPosition : null,
@@ -48,7 +47,7 @@ export default class MnistView extends  React.Component{
 
     componentWillMount(){
         this.thickness = 1;
-        this.color = "#f1f1f1";
+        this.color = "#cccccc";
         this.loadModel().then(()=>this.setState({loadedData :true}));
 
     }
@@ -64,7 +63,7 @@ export default class MnistView extends  React.Component{
                         <div className={"Simple-button"} onClick={()=> this.cleanCanvas()}>Clean</div>
                         <div className={"Simple-button"} onClick={() => {this.setState({rubberMode : !this.state.rubberMode})}} style={this.state.rubberMode ? {color:'green'} : {} }>Rubber</div>
                     </div>
-                    <canvas ref={"canvas"} className={"Draw-canvas"} width={600} height={600} onMouseMove={(event)=>{this.addMouseMove(event)}}
+                    <canvas ref={(canvas) => this.canvas = canvas} className={"Draw-canvas"} width={600} height={600} onMouseMove={(event)=>{this.addMouseMove(event)}}
                               onMouseUp={()=>this.addMouseUp()} onMouseDown={(event)=>this.addMouseDown(event)} onMouseOut={()=>this.addMouseOut()}> </canvas>
                 </div>
                     <div className={"Prediction-container"}>
@@ -76,10 +75,6 @@ export default class MnistView extends  React.Component{
                 </div> : <LoadingScreen/>)}
 
 
-
-    componentDidMount(){
-        this.initializeCanvas();
-    }
 
 
     /**
@@ -99,7 +94,7 @@ export default class MnistView extends  React.Component{
     async getPrediction(){
         if(this.state.loadedData) {
 
-            let canvas = this.refs.canvas;
+            let canvas = this.canvas;
             let imageData = StyleManager.getScaledData(canvas);
 
             await tfjs.tidy(() => {
@@ -136,7 +131,7 @@ export default class MnistView extends  React.Component{
      */
 
     draw = (color, thickness) =>{
-        let canvas = this.refs.canvas;
+        let canvas = this.canvas;
         let ctx = canvas.getContext("2d");
         ctx.save();
 
@@ -158,7 +153,7 @@ export default class MnistView extends  React.Component{
      * Restarting canvas to initials.
      */
     cleanCanvas = () =>{
-        let canvas = this.refs.canvas;
+        let canvas = this.canvas;
         let ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         ctx.fillStyle = "black";
@@ -182,7 +177,7 @@ export default class MnistView extends  React.Component{
      */
 
     addMouseMove = (event)=>{
-        let canvas = this.refs.canvas;
+        let canvas = this.canvas;
         let fontColor = StyleManager.getDrawColor(this.colorFontObject);
         if (this.state.isDrawing) {
             let pos = DataProvider.getMousePos(canvas, event);
@@ -190,14 +185,16 @@ export default class MnistView extends  React.Component{
                 prevPosition: this.state.currentPosition,
                 currentPosition: pos});
             if(this.state.rubberMode) {
-                    fontColor = "black";
+                    fontColor = "#111111";
+                    this.thickness = 3;
                     this.draw(fontColor, this.thickness);
             }else{
+                this.thickness = 1;
                 this.draw(fontColor, this.thickness);
-                }
-                if(this.state.realTimePredicting){
-                    this.getPrediction().then();
-                }
+            }
+
+            this.getPrediction().then();
+
             }};
 
     addMouseUp = () => {
@@ -207,7 +204,7 @@ export default class MnistView extends  React.Component{
     };
 
     addMouseDown = (event)=>{
-        let canvas = this.refs.canvas;
+        let canvas = this.canvas;
         let pos = DataProvider.getMousePos(canvas, event);
         this.setState({
             isDrawing: true,
