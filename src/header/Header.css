@@ -1,31 +1,21 @@
-ul{
-    margin:  0 0 0 0;
-    display: flex;
-    padding: 0;
-    list-style-type: none;
-
-}
-ul > li > p{
-    font-weight: bolder;
-
-}.Navigation-bar{
+.Navigation-bar{
      width: 100vw;
-     background-color: #212121;
+     position: absolute;
+     background-color: black;
      display: flex;
-     justify-content: space-between;
+     justify-content: space-around;
      flex-direction: row;
      padding: 4px;
      color: #f1f1f1;
      font-weight: bolder;
      font-family: 'Lato', sans-serif;
-    border-bottom: solid 2px #f1f1f1;
+     font-size: 32pt;
  }
-.Brain{
-    border-radius: 50%;
-    margin-left: 5%;
-    float: left;
+.Title-wrapper{
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-.circle-text {
+circle-text {
     width: 50px;
     height: 50px;
     border-radius: 50%;

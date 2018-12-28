@@ -12,16 +12,16 @@ export default class MnistView extends  React.Component{
     constructor(){
         super();
         this.colorList = [
-            'rgba(241, 241, 241, 0.3)',
-            'rgba(0, 255, 0, 0.7)',
-            'rgba(150, 50, 255, 0.3)',
-            'rgba(228, 90, 182, 1)',
-            'rgba(178, 221, 70, 1)',
-            'rgba(255, 150, 0, 0.3)',
-            'rgba(100, 255, 100, 0.3)',
-            'rgba(0, 0, 255, 0.3)',
-            'rgba(228, 63, 82, 1)',
-            'rgba(50, 221, 170, 1)'];
+            'rgba(241, 241, 241)',
+            'rgba(128, 0, 0)',
+            'rgba(204, 41, 0)',
+            'rgba(25, 25, 102)',
+            'rgba(27, 77, 51)',
+            'rgba(77, 0, 102)',
+            'rgba(0, 102, 77)',
+            'rgba(0, 204, 153)',
+            'rgba(204, 102, 102)',
+            'rgba(204, 204, 0)'];
 
         this.colorFontObject = {
           red : 241,
@@ -29,6 +29,7 @@ export default class MnistView extends  React.Component{
           green:241
         };
         this.state = {
+            initDone: false,
             result : '',
             rubberMode: false,
             isDrawing : false, // isDrawing == mouseDown
@@ -43,13 +44,13 @@ export default class MnistView extends  React.Component{
                         label: "Digit confidence",
                         backgroundColor: this.colorList,
                     }]}};
+
     };
 
     componentWillMount(){
         this.thickness = 1;
         this.color = "#cccccc";
         this.loadModel().then(()=>this.setState({loadedData :true}));
-
     }
 
 
@@ -61,10 +62,10 @@ export default class MnistView extends  React.Component{
                     <div className={"Button-wrapper"}>
                         <div className={"Simple-button"} onClick={() => this.props.getBack()} >&larr;</div>
                         <div className={"Simple-button"} onClick={()=> this.cleanCanvas()}>Clean</div>
-                        <div className={"Simple-button"} onClick={() => {this.setState({rubberMode : !this.state.rubberMode})}} style={this.state.rubberMode ? {color:'green'} : {} }>Rubber</div>
+                        <div className={"Simple-button"} onClick={() => {this.setState({rubberMode : !this.state.rubberMode})}} style={this.state.rubberMode ? {color:'#004d00'} : {} }>Rubber</div>
                     </div>
                     <canvas ref={(canvas) => this.canvas = canvas} className={"Draw-canvas"} width={600} height={600} onMouseMove={(event)=>{this.addMouseMove(event)}}
-                              onMouseUp={()=>this.addMouseUp()} onMouseDown={(event)=>this.addMouseDown(event)} onMouseOut={()=>this.addMouseOut()}> </canvas>
+                       title = "Draw Here!" onMouseUp={()=>this.addMouseUp()} onMouseDown={(event)=>this.addMouseDown(event)} onMouseOut={()=>this.addMouseOut()}> </canvas>
                 </div>
                     <div className={"Prediction-container"}>
                             <Doughnut  data = {this.state.charData} />
@@ -75,6 +76,20 @@ export default class MnistView extends  React.Component{
                 </div> : <LoadingScreen/>)}
 
 
+    componentDidUpdate(){
+        if(!this.state.initDone) {
+            this.initCanvas();
+        }
+    }
+
+    initCanvas = () => {
+        let ctx = this.canvas.getContext("2d");
+        ctx.fillStyle = "#cccccc";
+        ctx.font='64pt message-box';
+
+        ctx.textAlign = "center";
+        ctx.fillText("Draw Here!", this.canvas.width/2, this.canvas.height/2);
+    };
 
 
     /**
@@ -120,21 +135,22 @@ export default class MnistView extends  React.Component{
         }
     };
 
-    initializeCanvas = () => {
-        let canvas = this.refs.canvas;
-        let ctx = canvas.getContext("2d");
-        console.log("XD")
 
-        };
     /**
      * Drawing a line
      */
 
     draw = (color, thickness) =>{
+
+        if(!this.state.initDone){
+            this.setState({
+                initDone:true
+            });
+            this.cleanCanvas();
+        }
         let canvas = this.canvas;
         let ctx = canvas.getContext("2d");
         ctx.save();
-
         ctx.lineWidth = 30 * thickness;
 
         ctx.lineCap = 'round';
@@ -156,8 +172,6 @@ export default class MnistView extends  React.Component{
         let canvas = this.canvas;
         let ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        ctx.fillStyle = "black";
-        ctx.fill();
         this.setState({
             result: '',
             charData: {
@@ -185,7 +199,7 @@ export default class MnistView extends  React.Component{
                 prevPosition: this.state.currentPosition,
                 currentPosition: pos});
             if(this.state.rubberMode) {
-                    fontColor = "#111111";
+                    fontColor = "black";
                     this.thickness = 3;
                     this.draw(fontColor, this.thickness);
             }else{

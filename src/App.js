@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Content from './content/Content';
 import './App.css';
 import {BrowserRouter, Route} from 'react-router-dom';
+import Header from "./header/Header";
 
 
 export default class App extends Component {
@@ -18,6 +19,7 @@ export default class App extends Component {
     return (
         <BrowserRouter>
             <div style={{width:this.windowWidth, height:this.windowHeight,padding:'0',margin:'0'}}>
+                <Header/>
                 <Route exact path = '/' component = {Content}/>
             </div>
         </BrowserRouter>
