@@ -1,7 +1,6 @@
 import React from 'react';
 import "./Header.css";
 import questionMark from '../assets/question_mark.png';
-import author from '../assets/author.png';
 export default class Header extends React.Component{
     render(){
         return(
@@ -11,11 +10,8 @@ export default class Header extends React.Component{
                    </div>
 
                     <div className={"Info-wrapper"}>
-                        <div className={"Circle-button"} >
+                        <div className={"Circle-button"} onClick={this.props.handlePopUp} >
                             <img width={45} height={45} src={questionMark}/>
-                        </div>
-                        <div className={"Circle-button"} >
-                            <img width={45} height={45} src={author}/>
                         </div>
                     </div>
             </div>

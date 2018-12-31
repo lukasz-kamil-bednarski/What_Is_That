@@ -3,26 +3,37 @@ import Content from './content/Content';
 import './App.css';
 import {BrowserRouter, Route} from 'react-router-dom';
 import Header from "./header/Header";
-
+import PopUpView from './popupView/PopUpView';
 
 export default class App extends Component {
   constructor(props){
       super(props);
-      /*
-        Sizes of external the root container.
-       */
-      this.windowWidth = window.innerWidth;
-      this.windowHeight = window.innerHeight;
+
+      this.state ={
+          popupActive: false,
+          opacityStyle : {}
+      }
   }
 
   render() {
     return (
         <BrowserRouter>
-            <div style={{width:this.windowWidth, height:this.windowHeight,padding:'0',margin:'0'}}>
-                <Header/>
-                <Route exact path = '/' component = {Content}/>
+            <div className={"Project-container"}>
+                <Header handlePopUp = {this.handlePopUp} />
+                <Content/>
+                {this.state.popupActive ? <PopUpView /> : null }
             </div>
         </BrowserRouter>
     );
+  }
+
+  handlePopUp = () =>{
+
+
+      this.setState({
+          popupActive : !this.state.popupActive,
+          opacityStyle: this.state.popupActive ? {} : {opacity: '0.5'}
+      });
+
   }
 }

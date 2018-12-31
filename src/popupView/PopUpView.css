@@ -1,0 +1,43 @@
+.PopUp-container{
+    width: 50vw;
+    height: 50vh;
+    display: flex;
+    position: absolute;
+    color:white;
+    background:transparent;
+    top:10%;
+    left: 25%;
+    z-index: 150;
+    border-radius: 20px;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    font-size: 16pt;
+    padding: 15px;
+}
+.Paragraph-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 10%;
+}
+.Paragraph{
+    margin: 0;
+    padding: 5px;
+}
+.Arrow-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    min-width: 10vw;
+}
+.Arrow-button{
+    transition: 0.5s ease;
+    border-radius: 50%;
+    opacity: 0.7;
+    cursor: pointer;
+}
+.Arrow-button:hover{
+    opacity: 1;
+
+}
