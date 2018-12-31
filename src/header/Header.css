@@ -38,7 +38,7 @@
 }
 .Title-wrapper{
     text-align: center;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font: italic bold 60px/30px Georgia, serif;
     margin: 10px;
     transition: 0.5s ease;
 }

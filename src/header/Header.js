@@ -6,7 +6,7 @@ export default class Header extends React.Component{
         return(
             <div className={"Navigation-bar"}>
                    <div className={"Title-wrapper"}>
-                        What Is That?
+                        What Is That? 3.0
                    </div>
 
                     <div className={"Info-wrapper"}>

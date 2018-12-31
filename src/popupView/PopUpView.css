@@ -9,20 +9,27 @@
     left: 25%;
     z-index: 150;
     border-radius: 20px;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     font-size: 16pt;
     padding: 15px;
+
 }
 .Paragraph-wrapper{
     display: flex;
     flex-direction: column;
-    margin: 10%;
+    font: italic bold 20px/30px Georgia, serif;
+}
+.Paragraph-wrapper h1{
+    font: italic bold 60px/30px Georgia, serif;
+    text-align: center;
+    font-weight: bolder;
 }
 .Paragraph{
     margin: 0;
     padding: 5px;
+
 }
 .Arrow-wrapper{
     display: flex;
@@ -30,6 +37,8 @@
     align-items: center;
     flex-direction: row;
     min-width: 10vw;
+    margin-top: 15%;
+    position: fixed;
 }
 .Arrow-button{
     transition: 0.5s ease;
@@ -40,4 +49,21 @@
 .Arrow-button:hover{
     opacity: 1;
 
+}
+.Logo-button{
+    border-radius: 50%;
+}
+
+.Visit-wrapper{
+    display: flex;
+    flex-direction: row;
+
+}
+.Git-logo{
+    opacity: 0.5;
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+.Git-logo:hoveR{
+    opacity:1;
 }

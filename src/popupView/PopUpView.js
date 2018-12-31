@@ -2,28 +2,33 @@ import React from 'react';
 import './PopUpView.css';
 import left from '../assets/left.png';
 import right from '../assets/right.png';
+import {InfoView} from './infoView/InfoView';
+import {AuthorView} from "./author/AuthorView";
 
 export default  class PopUpView extends React.Component{
 
+    constructor(props){
+        super(props);
+        this.state = {
+            isInfo: true
+        }
+    }
     render(){
+
         return(
             <div className={"PopUp-container"}>
-                <div className={"Paragraph-wrapper"}>
-                    <p className={"Paragraph"}>
-                    This project has been created as a combination of  my 2 areas of interests -
-                    Machine Learning and frontend programming in JS(particularly in React).
-                    </p>
-                    <p className={"Paragraph"}>
-                    In the project we can distinguish 2 different parts. super
-                    The first one is Object recognition of different objects coming from real life.
-                    The full list of objects is available under this link.
-                    </p>
-                </div>
+                {this.state.isInfo? <InfoView/> : <AuthorView/>}
                 <div className={"Arrow-wrapper"}>
-                    <img className={"Arrow-button"} width={80} height={80} src={left}/>
-                    <img className={"Arrow-button"} width={80} height={80} src={right}/>
+                    <img onClick={this.toggleView} className={"Arrow-button"} width={80} height={80} src={left}/>
+                    <img onClick={this.toggleView} className={"Arrow-button"} width={80} height={80} src={right}/>
                 </div>
             </div>
         )
+    };
+
+    toggleView = () =>{
+        this.setState({
+            isInfo: !this.state.isInfo
+        })
     }
 }
