@@ -11,7 +11,11 @@ export default class App extends Component {
 
       this.state ={
           popupActive: false,
-          opacityStyle : {}
+          opacityStyle : {},
+          styleSettings : {
+              disabled:false,
+              globalOpacity : 0.9
+          }
       }
   }
 
@@ -19,21 +23,36 @@ export default class App extends Component {
     return (
         <BrowserRouter>
             <div className={"Project-container"}>
-                <Header handlePopUp = {this.handlePopUp} />
-                <Content/>
+                <Header handlePopUp = {this.togglePopUp} />
+                <Content settings = {this.state.styleSettings} />
                 {this.state.popupActive ? <PopUpView /> : null }
             </div>
         </BrowserRouter>
     );
   }
 
-  handlePopUp = () =>{
-
-
+  togglePopUp = () =>{
       this.setState({
           popupActive : !this.state.popupActive,
-          opacityStyle: this.state.popupActive ? {} : {opacity: '0.5'}
       });
+      this.handleStyleSettings();
+  };
 
+  handleStyleSettings = () =>{
+      if(!this.state.popupActive){
+          this.setState({
+              styleSettings:{
+                  disabled:true,
+                  globalOpacity:1
+              }
+          });
+      }else{
+          this.setState({
+              styleSettings:{
+                  disabled:false,
+                  globalOpacity:0.9
+              }
+          });
+      }
   }
 }

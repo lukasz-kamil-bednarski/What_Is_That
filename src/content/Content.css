@@ -88,7 +88,7 @@
     background-color: #cccccc;
     border-radius: 20px;
     cursor:pointer;
-    transition: 0.3s ease;
+    transition: 0.5s ease;
 }
 .Image-box button:hover{
     color:#f1f1f1;

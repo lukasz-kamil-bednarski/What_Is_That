@@ -32,18 +32,18 @@ export default class Content extends React.Component {
 
                             <div className={"Input-box"} style={{width: window.innerWidth / 3, height: window.innerHeight}}>
                                     <span onClick={()=>this.switchModel()}>MNIST</span>
-                                    <input id="file" className={"Image-input"}
+                                    <input id="file" className={"Image-input"} disabled={this.props.settings.disabled}
                                            onChange={(e) => {this.onImageUpload(e)}} type='file' title="Yes, Click it!"/>
-                                    <label htmlFor={"file"} className={"Image-input-label"}>Choose a file</label>
+                                    <label  htmlFor={"file"} className={"Image-input-label"}>Choose a file</label>
                             </div>
 
                             <div className={"Image-box"}>
                                <div className={"Canvas-wrapper"}>
-                                    <canvas ref={"canvas"} height={600} width={600}> </canvas>
+                                    <canvas  ref={"canvas"} height={600} width={600}> </canvas>
                                     <span>Prediction:{this.state.result}</span>
                                </div>
                                 <div className={"Button-wrapper"}>
-                                    <button onClick={() => this.get_prediction()}>Predict</button>
+                                    <button disabled={this.props.settings.disabled} onClick={() => this.get_prediction()}>Predict</button>
                                 </div>
                             </div>
                         </div> : <LoadingScreen/>);
