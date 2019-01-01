@@ -12,6 +12,21 @@ export default class DataProvider {
             y: evt.clientY - rect.top
         };
     };
+    /**
+     * Scaling data from canvas.
+     * @param canvas
+     * @returns {ImageData}
+     */
+    static getScaledData = (canvas, width, height) =>{
+        let scaledCanvas = document.createElement("canvas");
+        let scaledCtx = scaledCanvas.getContext("2d");
+
+        scaledCtx.width = width;
+        scaledCtx.height = height;
+
+        scaledCtx.drawImage(canvas, 0, 0, width, height);
+        return scaledCtx.getImageData(0, 0, width, height);
+    };
 
    static getDiscreteGraphWeight = () =>{
        let random = Math.random();

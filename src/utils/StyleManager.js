@@ -20,24 +20,6 @@ export default class StyleManager {
     };
 
     /**
-     * Scaling data from canvas.
-     * @param canvas
-     * @returns {ImageData}
-     */
-    static getScaledData = (canvas) =>{
-        let scaledCanvas = document.createElement("canvas");
-        let scaledCtx = scaledCanvas.getContext("2d");
-
-        scaledCtx.width = 28;
-        scaledCtx.height = 28;
-
-        scaledCtx.drawImage(canvas, 0, 0, 28, 28);
-        return scaledCtx.getImageData(0, 0, 28, 28);
-    };
-
-
-
-    /**
      *@Deprecated
      * @returns {any[]}
      */

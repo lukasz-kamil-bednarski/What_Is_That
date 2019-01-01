@@ -66,7 +66,7 @@
     transition: 0.5s ease;
 }
 .Input-box >span:hover{
-    color: #800000;
+    color: maroon;
     cursor: pointer;
 }
 
@@ -103,6 +103,14 @@
     margin: 2%;
     font-size: 48pt;
     font-weight: bolder;
+}
+.Canvas-wrapper span{
+    text-align: center;
+    transition: 0.5s ease;
+    min-height: 100px;
+}
+.Canvas-wrapper span:hover{
+    color:maroon;
 }
 .Button-wrapper{
     display: flex;

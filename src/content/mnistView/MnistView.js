@@ -110,7 +110,7 @@ export default class MnistView extends  React.Component{
         if(this.state.loadedData) {
 
             let canvas = this.canvas;
-            let imageData = StyleManager.getScaledData(canvas);
+            let imageData = DataProvider.getScaledData(canvas,28, 28);
 
             await tfjs.tidy(() => {
 

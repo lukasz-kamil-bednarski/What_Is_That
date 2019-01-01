@@ -5,6 +5,7 @@ import Converter from '../utils/Converter';
 import LoadingScreen from './LoadingScreen';
 import MnistView from './mnistView/MnistView';
 
+
 export default class Content extends React.Component {
 
     constructor(props) {
@@ -18,7 +19,12 @@ export default class Content extends React.Component {
             isModelLoaded: false,
             showGraph: false,
             classificationModel: true,
-        }}
+        };
+        this.canvasSize = {
+            width:600,
+            height:600
+        }
+    }
 
     componentWillMount() {
         this.loadModel().then(()=> this.setState({isModelLoaded:true}));
@@ -39,12 +45,13 @@ export default class Content extends React.Component {
 
                             <div className={"Image-box"}>
                                <div className={"Canvas-wrapper"}>
-                                    <canvas  ref={"canvas"} height={600} width={600}> </canvas>
-                                    <span>Prediction:{this.state.result}</span>
+                                    <canvas  ref={"canvas"} height={this.canvasSize.height} width={this.canvasSize.width}> </canvas>
+                                    <span>{this.state.result}</span>
                                </div>
                                 <div className={"Button-wrapper"}>
                                     <button disabled={this.props.settings.disabled} onClick={() => this.get_prediction()}>Predict</button>
                                 </div>
+
                             </div>
                         </div> : <LoadingScreen/>);
         }else{
@@ -72,31 +79,39 @@ export default class Content extends React.Component {
     drawImageToCanvas = () => {
         let canvas = this.refs.canvas;
         let ctx = canvas.getContext("2d");
-        const maxWidth = ctx.canvas.width;
-        const maxHeight = ctx.canvas.height;
+        const width = this.canvasSize.width;
+        const height = this.canvasSize.height;
 
-        const ratio = this.img.naturalWidth / this.img.naturalHeight;
+        const imgWidth = this.img.naturalWidth;
+        const imgHeight = this.img.naturalHeight;
+        let aspectRatio = 0;
+        console.log(imgWidth);
+        console.log(imgHeight);
+        if(imgWidth < width && imgHeight < height){
+            ctx.canvas.width = imgWidth;
+            ctx.canvas.height = imgHeight;
+            ctx.drawImage(this.img, 0, 0, imgWidth, imgHeight);
+            console.log(ctx.canvas.width);
+            console.log(ctx.canvas.height);
 
-        if(this.img.naturalWidth <= maxWidth && this.img.naturalHeight <= maxHeight){
-            ctx.canvas.width = this.img.naturalWidth;
-            ctx.canvas.height = this.img.naturalHeight;
-            ctx.drawImage(this.img, 0, 0, this.img.naturalWidth, this.img.naturalHeight);
-        }else{
-            if(this.img.naturalWidth > maxWidth && this.img.naturalHeight < maxHeight){
-                ctx.canvas.width = maxWidth;
-                ctx.canvas.height = this.img.naturalHeight / ratio;
-                ctx.drawImage(this.img, 0, 0, maxWidth, this.img.naturalHeight / ratio);
-            }else if(this.img.naturalWidth < maxWidth && this.img.naturalHeight > maxHeight){
-                ctx.canvas.width = this.img.naturalWidth / ratio;
-                ctx.canvas.height =maxHeight;
-                ctx.drawImage(this.img, 0, 0, this.img.naturalWidth / ratio, maxHeight);
-            }else{
-                ctx.drawImage(this.img, 0, 0, maxWidth, maxHeight);
+        }else {
+            if (imgWidth >= imgHeight) {
+                aspectRatio = width / imgWidth;
+                ctx.canvas.width = width;
+                ctx.canvas.height = imgHeight * aspectRatio;
+                ctx.drawImage(this.img, 0, 0, ctx.canvas.width, ctx.canvas.height);
+                console.log(ctx.canvas.width);
+                console.log(ctx.canvas.height);
+            } else {
+                aspectRatio = height / imgHeight;
+                ctx.canvas.width = imgWidth * aspectRatio;
+                ctx.canvas.height = height;
+                ctx.drawImage(this.img, 0, 0, ctx.canvas.width, ctx.canvas.height);
+                console.log(ctx.canvas.width);
+                console.log(ctx.canvas.height);
             }
-        }}
-
-
-    ;
+        }
+    };
 
 
     /**
