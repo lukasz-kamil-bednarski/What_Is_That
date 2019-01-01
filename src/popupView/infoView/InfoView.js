@@ -1,12 +1,12 @@
 import React from 'react';
 import '../PopUpView.css';
-
+import DataProvider from '../../utils/DataProvider';
 export const InfoView = () =>{
 
     let toggleDownload = () => {
         let element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,');
-        element.setAttribute('download', "./info.json");
+        element.href =  window.URL.createObjectURL(new Blob(DataProvider.getClasModelList()), {type: 'json'});
+        element.setAttribute('download', "info.json");
         element.style.display = 'none';
         document.body.appendChild(element);
         element.click();

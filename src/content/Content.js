@@ -66,6 +66,10 @@ export default class Content extends React.Component {
 
 
     onImageUpload = (event) => {
+        this.setState({
+            result:''
+        });
+
         const file = event.target.files[0];
 
         if(file) {
@@ -85,14 +89,11 @@ export default class Content extends React.Component {
         const imgWidth = this.img.naturalWidth;
         const imgHeight = this.img.naturalHeight;
         let aspectRatio = 0;
-        console.log(imgWidth);
-        console.log(imgHeight);
+
         if(imgWidth < width && imgHeight < height){
             ctx.canvas.width = imgWidth;
             ctx.canvas.height = imgHeight;
             ctx.drawImage(this.img, 0, 0, imgWidth, imgHeight);
-            console.log(ctx.canvas.width);
-            console.log(ctx.canvas.height);
 
         }else {
             if (imgWidth >= imgHeight) {
@@ -100,15 +101,11 @@ export default class Content extends React.Component {
                 ctx.canvas.width = width;
                 ctx.canvas.height = imgHeight * aspectRatio;
                 ctx.drawImage(this.img, 0, 0, ctx.canvas.width, ctx.canvas.height);
-                console.log(ctx.canvas.width);
-                console.log(ctx.canvas.height);
             } else {
                 aspectRatio = height / imgHeight;
                 ctx.canvas.width = imgWidth * aspectRatio;
                 ctx.canvas.height = height;
                 ctx.drawImage(this.img, 0, 0, ctx.canvas.width, ctx.canvas.height);
-                console.log(ctx.canvas.width);
-                console.log(ctx.canvas.height);
             }
         }
     };
@@ -168,7 +165,8 @@ export default class Content extends React.Component {
     getBack = () =>{
         this.setState({
             classificationModel: true,
-            mnistModel : false
+            mnistModel : false,
+            result:''
         })
     }
 
