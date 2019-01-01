@@ -49,7 +49,7 @@ export default class Content extends React.Component {
                                     <span>{this.state.result}</span>
                                </div>
                                 <div className={"Button-wrapper"}>
-                                    <button disabled={this.props.settings.disabled} onClick={() => this.get_prediction()}>Predict</button>
+                                    <button style={this.state.loadedData ? {border:'solid 4px #004d00'} : {}} disabled={this.props.settings.disabled} onClick={() => this.get_prediction()}>Predict</button>
                                 </div>
 
                             </div>

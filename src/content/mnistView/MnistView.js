@@ -5,7 +5,6 @@ import {Doughnut} from 'react-chartjs-2';
 import Converter from '../../utils/Converter';
 import StyleManager from "../../utils/StyleManager";
 import DataProvider from '../../utils/DataProvider';
-import "../Content.css";
 import LoadingScreen from "../LoadingScreen";
 
 export default class MnistView extends  React.Component{
@@ -59,7 +58,7 @@ export default class MnistView extends  React.Component{
             this.state.loadedData ?
             <div className={"Mnist-container"}>
                 <div className={"Drawing-board-container"}>
-                    <div className={"Button-wrapper"}>
+                    <div className={"Nav-wrapper"}>
                         <div className={"Simple-button"} onClick={() => this.props.getBack()} >&larr;</div>
                         <div className={"Simple-button"} onClick={()=> this.cleanCanvas()}>Clean</div>
                         <div className={"Simple-button"} onClick={() => {this.setState({rubberMode : !this.state.rubberMode})}} style={this.state.rubberMode ? {backgroundColor:'#004d00'} : {} }>Rubber</div>

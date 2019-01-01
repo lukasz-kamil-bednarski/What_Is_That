@@ -105,6 +105,7 @@
     font-weight: bolder;
 }
 .Canvas-wrapper span{
+    font-size: 15pt;
     text-align: center;
     transition: 0.5s ease;
     min-height: 100px;
@@ -115,7 +116,5 @@
 .Button-wrapper{
     display: flex;
     flex-direction: column;
-    margin: 1%;
+    margin: 5%;
 }
-
-
