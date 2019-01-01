@@ -21,8 +21,8 @@ export default class Content extends React.Component {
             classificationModel: true,
         };
         this.canvasSize = {
-            width:600,
-            height:600
+            width:400,
+            height:400
         }
     }
 
@@ -67,7 +67,8 @@ export default class Content extends React.Component {
 
     onImageUpload = (event) => {
         this.setState({
-            result:''
+            result:'',
+            loadedData: false
         });
 
         const file = event.target.files[0];
