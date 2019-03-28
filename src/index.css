@@ -25,3 +25,9 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: black;
 }
+@media screen and (max-width: 1200px) {
+
+  .Project-container{
+    display: none;
+  }
+}
