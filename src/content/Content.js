@@ -21,8 +21,8 @@ export default class Content extends React.Component {
             classificationModel: true,
         };
         this.canvasSize = {
-            width:500,
-            height:500
+            width:430,
+            height:430
         }
     }
 

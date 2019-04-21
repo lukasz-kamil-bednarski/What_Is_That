@@ -63,7 +63,7 @@ export default class MnistView extends  React.Component{
                         <div className={"Simple-button"} onClick={()=> this.cleanCanvas()}>Clean</div>
                         <div className={"Simple-button"} onClick={() => {this.setState({rubberMode : !this.state.rubberMode})}} style={this.state.rubberMode ? {backgroundColor:'#004d00'} : {} }>Rubber</div>
                     </div>
-                    <canvas ref={(canvas) => this.canvas = canvas} className={"Draw-canvas"} width={550} height={550} onMouseMove={(event)=>{this.addMouseMove(event)}}
+                    <canvas ref={(canvas) => this.canvas = canvas} className={"Draw-canvas"} width={430} height={430} onMouseMove={(event)=>{this.addMouseMove(event)}}
                        title = "Draw Here!" onMouseUp={()=>this.addMouseUp()} onMouseDown={(event)=>this.addMouseDown(event)} onMouseOut={()=>this.addMouseOut()}> </canvas>
                 </div>
                     <div className={"Prediction-container"}>
